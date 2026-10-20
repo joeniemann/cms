@@ -413,7 +413,8 @@ function photoField(def, obj, key, ctx) {
 }
 
 function listField(key, def, obj, ctx) {
-  if (!Array.isArray(obj[key])) obj[key] = []
+  // A single old value turns into a one-item list instead of being thrown away.
+  if (!Array.isArray(obj[key])) obj[key] = typeof def.item.kind === 'string' && typeof obj[key] === 'string' && obj[key].trim() ? [obj[key].trim()] : []
   const arr = obj[key]
   const simple = typeof def.item.kind === 'string'
   const min = def.min || 0, max = def.max || 99
@@ -752,6 +753,11 @@ const SCREENS = {
   footer: formScreen('footer', (site) => site.footer),
   seo: formScreen('seo', (site) => {
     const seo = site.seo || (site.seo = {})
+    // Old sites had one text value for the service area. It becomes the region name.
+    if (typeof seo.serviceArea === 'string') {
+      if (seo.serviceArea.trim() && !seo.serviceRegion) seo.serviceRegion = seo.serviceArea.trim()
+      seo.serviceArea = []
+    }
     if (seo.allowAiCrawlers === undefined) seo.allowAiCrawlers = true
     return seo
   }),
