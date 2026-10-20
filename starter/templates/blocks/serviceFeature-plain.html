@@ -1,0 +1,19 @@
+  <section class="band band--{{look}} svc{{#ifeq effect "sparks"}} svc--fab{{/ifeq}}" id="{{attr anchor}}">
+    {{#ifeq effect "sparks"}}<canvas class="spark-canvas" aria-hidden="true"></canvas>
+    {{/ifeq}}<div class="wrap">
+      <div class="svc-grid">
+        {{#ifeq photoSide "left"}}<figure class="svc-media" data-reveal>
+{{> sf-media}}
+        </figure>
+        <div class="svc-copy" data-reveal data-reveal-delay="120">
+{{> sf-copy}}
+        </div>
+        {{else}}<div class="svc-copy" data-reveal>
+{{> sf-copy}}
+        </div>
+        <figure class="svc-media" data-reveal data-reveal-delay="120">
+{{> sf-media}}
+        </figure>
+        {{/ifeq}}</div>
+    </div>
+  </section>

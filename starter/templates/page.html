@@ -1,0 +1,39 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>{{title}}</title>
+<meta name="description" content="{{attr description}}">
+{{{seoHead}}}
+<meta name="theme-color" content="#08090A">
+<link rel="icon" href="assets/icons/favicon.svg" type="image/svg+xml">
+<link rel="icon" href="assets/icons/favicon-32.png" sizes="32x32" type="image/png">
+<link rel="shortcut icon" href="favicon.ico">
+<link rel="apple-touch-icon" href="assets/icons/apple-touch-icon.png">
+<link rel="stylesheet" href="assets/vendor/fontawesome/css/all.min.css">
+<link rel="stylesheet" href="assets/css/site.css">
+<link rel="stylesheet" href="assets/css/pages.css">
+{{#if hasHero}}<link rel="stylesheet" href="assets/css/hero.css">
+{{/if}}<style>.sr-only{position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap;border:0}
+.skip{position:absolute;left:-9999px;top:0;z-index:1100;background:#F6F1E9;color:#08090A;padding:12px 18px;font-weight:700;font-size:12px;letter-spacing:.14em;text-transform:uppercase;text-decoration:none}
+.skip:focus{left:8px;top:8px}</style>
+<script>if(/[#&](invite_token|recovery_token|confirmation_token|email_change_token)=/.test(location.hash)){location.replace("/admin/"+location.hash)}</script>
+{{{jsonLd}}}
+</head>
+<body>
+{{> nav}}
+
+<main id="main">
+{{{blocks}}}
+{{#if showCallBand}}
+{{> cta}}
+{{/if}}
+</main>
+{{> foot}}
+{{#if hasGallery}}<script src="assets/data/gallery.js"></script>
+{{/if}}{{#if hasHero}}<script src="assets/js/hero.js"></script>
+{{/if}}<script src="assets/js/site.js"></script>
+<script>document.querySelectorAll("[data-year]").forEach(function(e){e.textContent=new Date().getFullYear()});</script>
+</body>
+</html>

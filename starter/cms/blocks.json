@@ -1,0 +1,1208 @@
+{
+  "_about": "Every block a page can hold, with each box exactly as a beginner sees it. The admin screens are generated from this file. kinds: text, headline (up to 2 lines), paragraph, richtext (bold, italic, link only), photo, link, list, choice, color, switch.",
+  "blocks": {
+    "pageHeader": {
+      "name": "Page header",
+      "help": "The big title area at the top of a page.",
+      "fields": {
+        "eyebrow": {
+          "label": "Small line above the headline",
+          "kind": "text",
+          "max": 30
+        },
+        "headline": {
+          "label": "Big headline",
+          "kind": "headline",
+          "lines": 2,
+          "maxPerLine": 28
+        },
+        "intro": {
+          "label": "Intro sentence",
+          "kind": "paragraph",
+          "max": 320
+        },
+        "facts": {
+          "label": "Quick facts",
+          "kind": "list",
+          "min": 0,
+          "max": 3,
+          "item": {
+            "big": {
+              "label": "Big word or number",
+              "kind": "text",
+              "max": 12
+            },
+            "label": {
+              "label": "Small label",
+              "kind": "text",
+              "max": 28
+            }
+          }
+        },
+        "factsAlign": {
+          "label": "Line up the words inside the quick fact cards",
+          "kind": "align",
+          "optional": true,
+          "options": [
+            [
+              "left",
+              "Left"
+            ],
+            [
+              "center",
+              "Center"
+            ],
+            [
+              "right",
+              "Right"
+            ]
+          ]
+        },
+        "backdrop": {
+          "label": "Background picture",
+          "kind": "choice",
+          "optional": true,
+          "options": [
+            [
+              "",
+              "None"
+            ],
+            [
+              "sewing",
+              "Sewing machine"
+            ],
+            [
+              "welding",
+              "Welding"
+            ]
+          ]
+        },
+        "look": {
+          "label": "Light or dark",
+          "kind": "choice",
+          "optional": true,
+          "options": [
+            [
+              "light",
+              "Light"
+            ],
+            [
+              "dark",
+              "Dark"
+            ]
+          ],
+          "note": "Leave empty to alternate automatically."
+        },
+        "factsFromHours": {
+          "label": "Show the shop hours as the quick facts",
+          "kind": "switch",
+          "optional": true,
+          "note": "When this is on, the quick facts above are replaced by the shop hours from Business info."
+        }
+      }
+    },
+    "cardRow": {
+      "name": "Card row",
+      "help": "A row of 2 to 6 cards, either linked or numbered.",
+      "fields": {
+        "style": {
+          "label": "Style",
+          "kind": "choice",
+          "options": [
+            [
+              "linked",
+              "Linked cards"
+            ],
+            [
+              "numbered",
+              "Numbered cards"
+            ]
+          ]
+        },
+        "eyebrow": {
+          "label": "Small line above the headline",
+          "kind": "text",
+          "max": 30
+        },
+        "headline": {
+          "label": "Big headline",
+          "kind": "headline",
+          "lines": 2,
+          "maxPerLine": 28
+        },
+        "intro": {
+          "label": "Intro sentence",
+          "kind": "paragraph",
+          "max": 220,
+          "optional": true
+        },
+        "backdrop": {
+          "label": "Background picture",
+          "kind": "choice",
+          "optional": true,
+          "options": [
+            [
+              "",
+              "None"
+            ],
+            [
+              "sewing",
+              "Sewing machine"
+            ],
+            [
+              "welding",
+              "Welding"
+            ]
+          ]
+        },
+        "look": {
+          "label": "Light or dark",
+          "kind": "choice",
+          "optional": true,
+          "options": [
+            [
+              "light",
+              "Light"
+            ],
+            [
+              "dark",
+              "Dark"
+            ]
+          ]
+        },
+        "cards": {
+          "label": "Cards",
+          "kind": "list",
+          "min": 2,
+          "max": 6,
+          "item": {
+            "label": {
+              "label": "Small label",
+              "kind": "text",
+              "max": 24,
+              "onlyWhen": {
+                "style": "linked"
+              }
+            },
+            "title": {
+              "label": "Title",
+              "kind": "text",
+              "max": 40
+            },
+            "text": {
+              "label": "Text",
+              "kind": "paragraph",
+              "max": 200
+            },
+            "link": {
+              "label": "Card goes to",
+              "kind": "link",
+              "onlyWhen": {
+                "style": "linked"
+              }
+            }
+          }
+        }
+      }
+    },
+    "textPhoto": {
+      "name": "Text and photo",
+      "help": "Words on one side, one photo on the other.",
+      "fields": {
+        "eyebrow": {
+          "label": "Small line above the headline",
+          "kind": "text",
+          "max": 30
+        },
+        "headline": {
+          "label": "Big headline",
+          "kind": "headline",
+          "lines": 2,
+          "maxPerLine": 32
+        },
+        "paragraphs": {
+          "label": "Paragraphs",
+          "kind": "list",
+          "min": 1,
+          "max": 4,
+          "item": {
+            "kind": "richtext",
+            "max": 400
+          }
+        },
+        "facts": {
+          "label": "Quick facts",
+          "kind": "list",
+          "min": 0,
+          "max": 3,
+          "item": {
+            "big": {
+              "label": "Big word or number",
+              "kind": "text",
+              "max": 12
+            },
+            "auto": {
+              "label": "Fill in automatically",
+              "kind": "choice",
+              "optional": true,
+              "options": [
+                [
+                  "",
+                  "No"
+                ],
+                [
+                  "photoCount",
+                  "Number of gallery photos"
+                ],
+                [
+                  "categoryCount",
+                  "Number of kinds of work"
+                ]
+              ]
+            },
+            "label": {
+              "label": "Small label",
+              "kind": "text",
+              "max": 28
+            }
+          }
+        },
+        "factsAlign": {
+          "label": "Line up the words inside the quick fact cards",
+          "kind": "align",
+          "optional": true,
+          "options": [
+            [
+              "left",
+              "Left"
+            ],
+            [
+              "center",
+              "Center"
+            ],
+            [
+              "right",
+              "Right"
+            ]
+          ]
+        },
+        "buttons": {
+          "label": "Buttons",
+          "kind": "list",
+          "min": 0,
+          "max": 2,
+          "item": {
+            "label": {
+              "label": "Button words",
+              "kind": "text",
+              "max": 24
+            },
+            "link": {
+              "label": "Button goes to",
+              "kind": "link"
+            },
+            "style": {
+              "label": "Look",
+              "kind": "choice",
+              "options": [
+                [
+                  "sewn",
+                  "Orange"
+                ],
+                [
+                  "heat",
+                  "Glass"
+                ],
+                [
+                  "line",
+                  "Outline"
+                ]
+              ]
+            }
+          }
+        },
+        "photo": {
+          "label": "Photo",
+          "kind": "photo",
+          "altRequired": true
+        },
+        "look": {
+          "label": "Light or dark",
+          "kind": "choice",
+          "optional": true,
+          "options": [
+            [
+              "light",
+              "Light"
+            ],
+            [
+              "dark",
+              "Dark"
+            ]
+          ]
+        }
+      }
+    },
+    "photoMosaic": {
+      "name": "Photo mosaic with text",
+      "help": "Words beside a collage of 3 to 8 photos. Tile shapes are chosen automatically from the order.",
+      "fields": {
+        "eyebrow": {
+          "label": "Small line above the headline",
+          "kind": "text",
+          "max": 30
+        },
+        "headline": {
+          "label": "Big headline",
+          "kind": "headline",
+          "lines": 2,
+          "maxPerLine": 28
+        },
+        "paragraphs": {
+          "label": "Paragraphs",
+          "kind": "list",
+          "min": 1,
+          "max": 4,
+          "item": {
+            "kind": "richtext",
+            "max": 400
+          }
+        },
+        "photos": {
+          "label": "Photos",
+          "kind": "list",
+          "min": 3,
+          "max": 8,
+          "item": {
+            "kind": "photo",
+            "altRequired": true
+          }
+        },
+        "look": {
+          "label": "Light or dark",
+          "kind": "choice",
+          "optional": true,
+          "options": [
+            [
+              "light",
+              "Light"
+            ],
+            [
+              "dark",
+              "Dark"
+            ]
+          ]
+        }
+      }
+    },
+    "serviceFeature": {
+      "name": "Service feature",
+      "help": "One service on the Services page: its words, quick details and photo.",
+      "fields": {
+        "version": {
+          "label": "Version",
+          "kind": "choice",
+          "options": [
+            [
+              "plain",
+              "Standard"
+            ],
+            [
+              "colors",
+              "With color picker (photo changes)"
+            ],
+            [
+              "finish",
+              "With finish picker (before and after)"
+            ]
+          ]
+        },
+        "anchor": {
+          "label": "Link name",
+          "kind": "text",
+          "hidden": true,
+          "note": "Made from the headline. Lets other pages link to this spot."
+        },
+        "eyebrow": {
+          "label": "Small line above the headline",
+          "kind": "text",
+          "max": 30
+        },
+        "headline": {
+          "label": "Big headline",
+          "kind": "headline",
+          "lines": 2,
+          "maxPerLine": 24
+        },
+        "text": {
+          "label": "Paragraph",
+          "kind": "paragraph",
+          "max": 420
+        },
+        "details": {
+          "label": "Quick details",
+          "kind": "list",
+          "min": 2,
+          "max": 6,
+          "item": {
+            "label": {
+              "label": "Label",
+              "kind": "text",
+              "max": 16
+            },
+            "value": {
+              "label": "Detail",
+              "kind": "text",
+              "max": 48
+            }
+          }
+        },
+        "button": {
+          "label": "Button",
+          "kind": "object",
+          "item": {
+            "label": {
+              "label": "Button words",
+              "kind": "text",
+              "max": 24
+            },
+            "link": {
+              "label": "Button goes to",
+              "kind": "link"
+            },
+            "style": {
+              "label": "Look",
+              "kind": "choice",
+              "options": [
+                [
+                  "sewn",
+                  "Orange"
+                ],
+                [
+                  "heat",
+                  "Glass"
+                ]
+              ]
+            }
+          }
+        },
+        "photo": {
+          "label": "Photo",
+          "kind": "photo",
+          "altRequired": true,
+          "onlyWhen": {
+            "version": "plain"
+          }
+        },
+        "caption": {
+          "label": "Photo caption",
+          "kind": "text",
+          "max": 60,
+          "onlyWhen": {
+            "version": "plain"
+          }
+        },
+        "photoSide": {
+          "label": "Photo on the",
+          "kind": "choice",
+          "options": [
+            [
+              "right",
+              "Right"
+            ],
+            [
+              "left",
+              "Left"
+            ]
+          ],
+          "onlyWhen": {
+            "version": "plain"
+          }
+        },
+        "effect": {
+          "label": "Sparks effect",
+          "kind": "choice",
+          "options": [
+            [
+              "sparks",
+              "On"
+            ],
+            [
+              "",
+              "Off"
+            ]
+          ],
+          "onlyWhen": {
+            "version": "plain"
+          }
+        },
+        "pickerLabel": {
+          "label": "Words above the picker",
+          "kind": "text",
+          "max": 28,
+          "onlyWhen": {
+            "version": [
+              "colors",
+              "finish"
+            ]
+          }
+        },
+        "swatches": {
+          "label": "Colors",
+          "kind": "list",
+          "min": 2,
+          "max": 8,
+          "onlyWhen": {
+            "version": "colors"
+          },
+          "item": {
+            "name": {
+              "label": "Color name",
+              "kind": "text",
+              "max": 20
+            },
+            "label": {
+              "label": "Short name on the button",
+              "kind": "text",
+              "max": 10
+            },
+            "color": {
+              "label": "Color",
+              "kind": "color"
+            },
+            "photo": {
+              "label": "Photo",
+              "kind": "photo",
+              "altRequired": false
+            },
+            "caption": {
+              "label": "Photo caption",
+              "kind": "text",
+              "max": 60
+            },
+            "alt": {
+              "label": "Describe this photo for someone who can't see it",
+              "kind": "text",
+              "max": 120,
+              "required": true
+            }
+          }
+        },
+        "finishes": {
+          "label": "Finishes",
+          "kind": "list",
+          "min": 2,
+          "max": 8,
+          "onlyWhen": {
+            "version": "finish"
+          },
+          "item": {
+            "name": {
+              "label": "Finish name",
+              "kind": "text",
+              "max": 20
+            },
+            "color": {
+              "label": "Color",
+              "kind": "color"
+            }
+          }
+        },
+        "before": {
+          "label": "Before panel",
+          "kind": "object",
+          "onlyWhen": {
+            "version": "finish"
+          },
+          "item": {
+            "heading": {
+              "label": "Heading",
+              "kind": "text",
+              "max": 14
+            },
+            "text": {
+              "label": "Sentence",
+              "kind": "text",
+              "max": 80
+            }
+          }
+        },
+        "after": {
+          "label": "After panel",
+          "kind": "object",
+          "onlyWhen": {
+            "version": "finish"
+          },
+          "item": {
+            "heading": {
+              "label": "Heading",
+              "kind": "text",
+              "max": 14
+            },
+            "text": {
+              "label": "Sentence",
+              "kind": "text",
+              "max": 80
+            }
+          }
+        },
+        "look": {
+          "label": "Light or dark",
+          "kind": "choice",
+          "optional": true,
+          "options": [
+            [
+              "light",
+              "Light"
+            ],
+            [
+              "dark",
+              "Dark"
+            ]
+          ],
+          "onlyWhen": {
+            "version": [
+              "plain",
+              "colors"
+            ]
+          }
+        },
+        "pickerAria": {
+          "label": "Picker name for screen readers",
+          "kind": "text",
+          "hidden": true,
+          "max": 40,
+          "onlyWhen": {
+            "version": [
+              "colors",
+              "finish"
+            ]
+          }
+        }
+      }
+    },
+    "timeline": {
+      "name": "Timeline list",
+      "help": "A numbered list of 2 to 8 items with a title and a sentence each.",
+      "fields": {
+        "eyebrow": {
+          "label": "Small line above the headline",
+          "kind": "text",
+          "max": 40
+        },
+        "headline": {
+          "label": "Big headline",
+          "kind": "headline",
+          "lines": 2,
+          "maxPerLine": 28
+        },
+        "text": {
+          "label": "Paragraph",
+          "kind": "paragraph",
+          "max": 260
+        },
+        "items": {
+          "label": "Items",
+          "kind": "list",
+          "min": 2,
+          "max": 8,
+          "item": {
+            "title": {
+              "label": "Title",
+              "kind": "text",
+              "max": 50
+            },
+            "text": {
+              "label": "Sentence",
+              "kind": "paragraph",
+              "max": 200
+            }
+          }
+        },
+        "look": {
+          "label": "Light or dark",
+          "kind": "choice",
+          "optional": true,
+          "options": [
+            [
+              "light",
+              "Light"
+            ],
+            [
+              "dark",
+              "Dark"
+            ]
+          ]
+        }
+      }
+    },
+    "galleryBrowser": {
+      "name": "Gallery browser",
+      "help": "Shows every photo from the Gallery manager with filters and a full-screen viewer. Photos, categories and groups are managed there.",
+      "fields": {
+        "emptyMessage": {
+          "label": "Words when a filter has no photos",
+          "kind": "text",
+          "max": 80
+        }
+      }
+    },
+    "contactSection": {
+      "name": "Contact details, map and request form",
+      "help": "Two cards that share one band: the shop details with the map, and the request form. Address, phone, email, hours and social links come from Business Info.",
+      "onlyOn": [
+        "contact"
+      ],
+      "fields": {
+        "details": {
+          "label": "Shop details card",
+          "kind": "object",
+          "item": {
+            "heading": {
+              "label": "Heading",
+              "kind": "text",
+              "max": 30
+            },
+            "phoneNote": {
+              "label": "Note under the phone number",
+              "kind": "text",
+              "max": 60
+            },
+            "emailNote": {
+              "label": "Note under the email",
+              "kind": "text",
+              "max": 60
+            },
+            "socialNote": {
+              "label": "Note under the social links",
+              "kind": "text",
+              "max": 60
+            }
+          }
+        },
+        "form": {
+          "label": "Request form card",
+          "kind": "object",
+          "item": {
+            "heading": {
+              "label": "Heading",
+              "kind": "text",
+              "max": 30
+            },
+            "intro": {
+              "label": "Intro paragraph",
+              "kind": "paragraph",
+              "max": 200
+            },
+            "serviceChoices": {
+              "label": "Choices in the \"What do you need?\" menu",
+              "kind": "list",
+              "min": 2,
+              "max": 12,
+              "item": {
+                "kind": "text",
+                "max": 60
+              }
+            },
+            "messageHint": {
+              "label": "Hint inside the message box",
+              "kind": "paragraph",
+              "max": 200
+            },
+            "successMessage": {
+              "label": "Thank-you message",
+              "kind": "paragraph",
+              "max": 200
+            },
+            "errorMessage": {
+              "label": "Message if sending fails",
+              "kind": "paragraph",
+              "max": 200
+            },
+            "buttonLabel": {
+              "label": "Button words",
+              "kind": "text",
+              "max": 24
+            }
+          }
+        }
+      }
+    }
+  },
+  "siteSettings": {
+    "business": "Business Info: name, one-line description, address, directions note, phone, email, hours, social links, booking link, map label",
+    "menu": "Menu: page order, Show in menu switch, menu word, header button",
+    "callBand": "Call band: big words, paragraph, two buttons. Per page switch: showCallBand",
+    "footer": "Footer: news sign-up heading, blurb, placeholder, button words, thank-you message"
+  },
+  "siteForms": {
+    "business": {
+      "title": "Business info",
+      "lead": "This is the information that shows up all over the site: the footer, the Contact page, the map, and every Call us button. Change it here once and it updates everywhere.",
+      "preview": "contact",
+      "groups": [
+        {
+          "name": "The business",
+          "fields": {
+            "name": {
+              "label": "Full business name",
+              "kind": "text",
+              "max": 60
+            },
+            "shortName": {
+              "label": "Short name",
+              "kind": "text",
+              "max": 12,
+              "note": "Used in small spaces, like \"YBN\"."
+            },
+            "description": {
+              "label": "One-line description",
+              "kind": "paragraph",
+              "max": 120,
+              "note": "Shows in the footer under the logo."
+            },
+            "legalLine": {
+              "label": "Line at the very bottom of every page",
+              "kind": "text",
+              "max": 60
+            }
+          }
+        },
+        {
+          "name": "Address",
+          "fields": {
+            "street": {
+              "label": "Street address",
+              "kind": "text",
+              "max": 60
+            },
+            "cityLine": {
+              "label": "City, state and zip",
+              "kind": "text",
+              "max": 40
+            },
+            "directionsNote": {
+              "label": "Directions note",
+              "kind": "text",
+              "max": 80,
+              "note": "Shows under the address on the Contact page, like \"Off Ustler Road\"."
+            },
+            "mapLabel": {
+              "label": "Short address shown under the map",
+              "kind": "text",
+              "max": 60
+            }
+          }
+        },
+        {
+          "name": "Phone and email",
+          "fields": {
+            "phone": {
+              "label": "Phone number",
+              "kind": "text",
+              "max": 14,
+              "pattern": "^\\(?\\d{3}\\)?[-. ]?\\d{3}[-. ]?\\d{4}$",
+              "patternMessage": "Please enter a 10 digit phone number, like 352-536-2628. It is not saved until it looks right.",
+              "note": "Every \"Call us\" button on the site uses this number."
+            },
+            "email": {
+              "label": "Email address",
+              "kind": "text",
+              "max": 80,
+              "pattern": "^[^\\s@]+@[^\\s@]+\\.[^\\s@]+$",
+              "patternMessage": "That does not look like an email address yet. It is not saved until it does."
+            }
+          }
+        },
+        {
+          "name": "Shop hours",
+          "fields": {
+            "hours": {
+              "label": "Hours",
+              "kind": "list",
+              "min": 1,
+              "max": 4,
+              "item": {
+                "days": {
+                  "label": "Days",
+                  "kind": "text",
+                  "max": 16
+                },
+                "times": {
+                  "label": "Hours",
+                  "kind": "text",
+                  "max": 24
+                }
+              }
+            }
+          }
+        },
+        {
+          "name": "Social links",
+          "fields": {
+            "social": {
+              "label": "Social links",
+              "kind": "object",
+              "item": {
+                "facebook": {
+                  "label": "Facebook page address",
+                  "kind": "text",
+                  "max": 120,
+                  "pattern": "^(https?://.*)?$",
+                  "patternMessage": "The address needs to start with https://. Leave it empty to hide the icon."
+                },
+                "instagram": {
+                  "label": "Instagram page address",
+                  "kind": "text",
+                  "max": 120,
+                  "pattern": "^(https?://.*)?$",
+                  "patternMessage": "The address needs to start with https://. Leave it empty to hide the icon."
+                },
+                "tiktok": {
+                  "label": "TikTok page address",
+                  "kind": "text",
+                  "max": 120,
+                  "pattern": "^(https?://.*)?$",
+                  "patternMessage": "The address needs to start with https://. Leave it empty to hide the icon."
+                }
+              }
+            }
+          }
+        },
+        {
+          "name": "Online booking",
+          "fields": {
+            "bookingLink": {
+              "label": "Online booking link (optional)",
+              "kind": "text",
+              "max": 160,
+              "pattern": "^(https?://.*)?$",
+              "patternMessage": "The address needs to start with https://. Leave it empty if you do not use one.",
+              "note": "Leave empty if you do not use an online booking page."
+            }
+          }
+        }
+      ]
+    },
+    "callBand": {
+      "title": "Call band",
+      "lead": "This is the big band near the bottom of most pages that invites people to call or message the shop. Change the words and where each button goes. To hide it on one page, use the switch at the bottom of that page's screen.",
+      "preview": "home",
+      "previewScroll": "end",
+      "groups": [
+        {
+          "name": "The words",
+          "fields": {
+            "headline": {
+              "label": "Big words",
+              "kind": "text",
+              "max": 30,
+              "note": "Keep it short. It shows in large letters."
+            },
+            "text": {
+              "label": "Sentence under the big words",
+              "kind": "paragraph",
+              "max": 200
+            }
+          }
+        },
+        {
+          "name": "First button",
+          "fields": {
+            "primary": {
+              "label": "First button",
+              "kind": "object",
+              "item": {
+                "show": {
+                  "label": "Show this button",
+                  "kind": "switch",
+                  "note": "Switch off to hide it. You can show both buttons, just one, or neither."
+                },
+                "label": {
+                  "label": "Words on the button",
+                  "kind": "text",
+                  "max": 20
+                },
+                "link": {
+                  "label": "Button goes to",
+                  "kind": "link"
+                },
+                "style": {
+                  "label": "Look",
+                  "kind": "choice",
+                  "options": [
+                    [
+                      "sewn",
+                      "Orange"
+                    ],
+                    [
+                      "heat",
+                      "Glass"
+                    ],
+                    [
+                      "line",
+                      "Outline"
+                    ]
+                  ]
+                }
+              }
+            }
+          }
+        },
+        {
+          "name": "Second button",
+          "fields": {
+            "secondary": {
+              "label": "Second button",
+              "kind": "object",
+              "item": {
+                "show": {
+                  "label": "Show this button",
+                  "kind": "switch",
+                  "note": "Switch off to hide it. You can show both buttons, just one, or neither."
+                },
+                "label": {
+                  "label": "Words on the button",
+                  "kind": "text",
+                  "max": 20
+                },
+                "link": {
+                  "label": "Button goes to",
+                  "kind": "link"
+                },
+                "style": {
+                  "label": "Look",
+                  "kind": "choice",
+                  "options": [
+                    [
+                      "sewn",
+                      "Orange"
+                    ],
+                    [
+                      "heat",
+                      "Glass"
+                    ],
+                    [
+                      "line",
+                      "Outline"
+                    ]
+                  ]
+                }
+              }
+            }
+          }
+        }
+      ]
+    },
+    "footer": {
+      "title": "Footer",
+      "lead": "This is the bottom of every page. The logo line, menu links, address, phone and social icons come from Business info and Menu. Here you can change the news sign-up box. Sign-ups arrive in your Netlify dashboard under Forms.",
+      "preview": "home",
+      "previewScroll": "end",
+      "groups": [
+        {
+          "name": "News sign-up words",
+          "fields": {
+            "newsletterHeading": {
+              "label": "Heading",
+              "kind": "text",
+              "max": 30
+            },
+            "newsletterText": {
+              "label": "Sentence under the heading",
+              "kind": "paragraph",
+              "max": 140
+            },
+            "newsletterPlaceholder": {
+              "label": "Words inside the email box",
+              "kind": "text",
+              "max": 24,
+              "note": "Shows in grey until someone types."
+            },
+            "newsletterButton": {
+              "label": "Words on the button",
+              "kind": "text",
+              "max": 14
+            }
+          }
+        },
+        {
+          "name": "After someone signs up",
+          "fields": {
+            "newsletterSuccess": {
+              "label": "Thank-you message",
+              "kind": "text",
+              "max": 100,
+              "note": "Shows right after a successful sign-up."
+            },
+            "newsletterError": {
+              "label": "Message if it fails",
+              "kind": "text",
+              "max": 100,
+              "note": "Shows if the sign-up could not be sent."
+            }
+          }
+        }
+      ]
+    }
+  },
+  "pageTypes": {
+    "info": {
+      "name": "Info page",
+      "help": "Words and photos in sections, like the About page.",
+      "starts": [
+        "pageHeader",
+        "textPhoto",
+        "cardRow",
+        "timeline"
+      ],
+      "allowed": [
+        "pageHeader",
+        "textPhoto",
+        "photoMosaic",
+        "cardRow",
+        "timeline"
+      ]
+    },
+    "service": {
+      "name": "Service page",
+      "help": "A big service section with a photo, like the Services page.",
+      "starts": [
+        "pageHeader",
+        "serviceFeature",
+        "textPhoto"
+      ],
+      "allowed": [
+        "pageHeader",
+        "serviceFeature",
+        "textPhoto",
+        "photoMosaic",
+        "cardRow"
+      ]
+    },
+    "gallery": {
+      "name": "Gallery page",
+      "help": "A header and the photo gallery. It shows the same photos as the main Gallery page.",
+      "starts": [
+        "pageHeader",
+        "galleryBrowser"
+      ],
+      "allowed": [
+        "pageHeader",
+        "galleryBrowser"
+      ]
+    },
+    "contact": {
+      "name": "Contact page",
+      "help": "A header with the shop details, map and request form. Requests go to the same inbox as the main Contact page.",
+      "starts": [
+        "pageHeader",
+        "contactSection"
+      ],
+      "allowed": [
+        "pageHeader",
+        "contactSection"
+      ]
+    }
+  }
+}

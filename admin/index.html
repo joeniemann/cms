@@ -1,0 +1,170 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex, nofollow">
+<title>Edit your website</title>
+<style>
+  :root { --ink:#1b1d21; --muted:#5d636d; --line:#d9dce1; --bg:#f4f5f7; --card:#fff; --brand:#c8102e; --brand-dark:#9f0c24; --ok:#1f7a3d; }
+  * { box-sizing: border-box; }
+  body { margin:0; font-family: system-ui, -apple-system, "Segoe UI", Roboto, sans-serif; background:var(--bg); color:var(--ink); min-height:100vh; display:flex; align-items:center; justify-content:center; padding:24px; }
+  .card { background:var(--card); border:1px solid var(--line); border-radius:14px; padding:36px 32px; width:100%; max-width:420px; box-shadow:0 6px 24px rgba(0,0,0,.06); }
+  h1 { font-size:26px; margin:0 0 6px; }
+  p { color:var(--muted); line-height:1.5; margin:0 0 20px; }
+  label { display:block; font-weight:600; font-size:15px; margin:14px 0 6px; }
+  input { width:100%; font-size:18px; padding:12px 14px; border:2px solid var(--line); border-radius:10px; }
+  input:focus { outline:none; border-color:var(--brand); }
+  button { width:100%; margin-top:22px; font-size:18px; font-weight:700; padding:14px; border:0; border-radius:10px; background:var(--brand); color:#fff; cursor:pointer; }
+  button:hover { background:var(--brand-dark); }
+  button:disabled { opacity:.6; cursor:wait; }
+  .link { background:none; color:var(--muted); font-size:15px; font-weight:500; text-decoration:underline; margin-top:14px; padding:6px; }
+  .link:hover { background:none; color:var(--ink); }
+  .msg { margin-top:16px; padding:12px 14px; border-radius:10px; font-size:15px; display:none; }
+  .msg.error { display:block; background:#fdecee; color:#8a1021; }
+  .msg.good { display:block; background:#e8f5ec; color:var(--ok); }
+  .hidden { display:none !important; }
+  .who { font-weight:700; color:var(--ink); }
+</style>
+<link rel="stylesheet" href="app.css">
+</head>
+<body>
+<div class="card">
+
+  <div id="loading"><h1>One moment...</h1></div>
+
+  <form id="loginForm" class="hidden">
+    <h1>Edit your website</h1>
+    <p>Log in with your email and password.</p>
+    <label for="email">Email</label>
+    <input id="email" type="email" autocomplete="username" required>
+    <label for="password">Password</label>
+    <input id="password" type="password" autocomplete="current-password" required>
+    <button type="submit">Log in</button>
+    <button type="button" id="forgotBtn" class="link">I forgot my password</button>
+    <div class="msg" id="loginMsg"></div>
+  </form>
+
+  <form id="newPwForm" class="hidden">
+    <h1 id="newPwTitle">Pick a password</h1>
+    <p id="newPwText">Choose a password you will remember. Use at least 8 characters.</p>
+    <label for="newPw">New password</label>
+    <input id="newPw" type="password" autocomplete="new-password" minlength="8" required>
+    <button type="submit">Save my password</button>
+    <div class="msg" id="newPwMsg"></div>
+  </form>
+
+  <div id="welcome" class="hidden">
+    <h1>You are in.</h1>
+    <p>Logged in as <span class="who" id="whoEmail"></span> (<span id="whoRole"></span>).</p>
+    <button type="button" id="logoutBtn" class="link">Log out</button>
+  </div>
+
+  <div id="noAccess" class="hidden">
+    <h1>Almost there</h1>
+    <p>Your login works, but you have not been given access yet. Ask Joe to turn it on.</p>
+    <button type="button" id="logoutBtn2">Log out</button>
+  </div>
+
+</div>
+<div id="app" class="hidden"></div>
+
+<script type="module">
+import { login, logout, getUser, handleAuthCallback, acceptInvite, updateUser, requestPasswordRecovery } from './identity.js'
+
+const $ = (id) => document.getElementById(id)
+const screens = ['loading', 'loginForm', 'newPwForm', 'welcome', 'noAccess']
+function show(name) { screens.forEach((s) => $(s).classList.toggle('hidden', s !== name)) }
+function say(id, text, kind) { const el = $(id); el.textContent = text; el.className = 'msg ' + kind }
+function nice(err) {
+  const m = (err && err.message) || ''
+  if (/invalid|credentials|password/i.test(m)) return 'That email or password did not work. Try again.'
+  return m || 'Something went wrong. Try again.'
+}
+
+let inviteToken = null
+
+async function showAfterLogin() {
+  const res = await fetch('/.netlify/functions/whoami', { credentials: 'same-origin' })
+  if (res.status === 200) {
+    const data = await res.json()
+    $('whoEmail').textContent = data.email
+    $('whoRole').textContent = data.role
+    const mod = await import('./app.js')
+    mod.startApp(data)
+  } else if (res.status === 403) {
+    show('noAccess')
+  } else {
+    show('loginForm')
+  }
+}
+
+async function start() {
+  try {
+    const result = await handleAuthCallback()
+    if (result) {
+      history.replaceState(null, '', location.pathname)
+      if (result.type === 'invite') {
+        inviteToken = result.token
+        $('newPwTitle').textContent = 'Welcome! Pick a password'
+        show('newPwForm')
+        return
+      }
+      if (result.type === 'recovery') {
+        $('newPwTitle').textContent = 'Pick a new password'
+        show('newPwForm')
+        return
+      }
+    }
+  } catch (err) {
+    show('loginForm')
+    say('loginMsg', 'That link did not work. It may be old. Ask Joe to send a new one.', 'error')
+    return
+  }
+  const user = await getUser()
+  if (user) { await showAfterLogin() } else { show('loginForm') }
+}
+
+$('loginForm').addEventListener('submit', async (e) => {
+  e.preventDefault()
+  const btn = e.target.querySelector('button[type=submit]')
+  btn.disabled = true
+  try {
+    await login($('email').value.trim(), $('password').value)
+    await showAfterLogin()
+  } catch (err) {
+    say('loginMsg', nice(err), 'error')
+  } finally { btn.disabled = false }
+})
+
+$('forgotBtn').addEventListener('click', async () => {
+  const email = $('email').value.trim()
+  if (!email) { say('loginMsg', 'Type your email above first, then click this again.', 'error'); return }
+  try {
+    await requestPasswordRecovery(email)
+    say('loginMsg', 'Done. Check your email for a link to make a new password.', 'good')
+  } catch (err) { say('loginMsg', nice(err), 'error') }
+})
+
+$('newPwForm').addEventListener('submit', async (e) => {
+  e.preventDefault()
+  const btn = e.target.querySelector('button[type=submit]')
+  btn.disabled = true
+  try {
+    if (inviteToken) { await acceptInvite(inviteToken, $('newPw').value); inviteToken = null }
+    else { await updateUser({ password: $('newPw').value }) }
+    await showAfterLogin()
+  } catch (err) {
+    say('newPwMsg', nice(err), 'error')
+  } finally { btn.disabled = false }
+})
+
+async function doLogout() { await logout(); location.reload() }
+$('logoutBtn').addEventListener('click', doLogout)
+$('logoutBtn2').addEventListener('click', doLogout)
+
+
+start()
+</script>
+</body>
+</html>

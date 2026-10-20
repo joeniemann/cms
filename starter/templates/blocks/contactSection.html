@@ -1,0 +1,102 @@
+  <section class="band band--{{look}}">
+    <div class="wrap">
+      <div class="contact-grid">
+
+        <div data-reveal>
+          <h2 class="h-sub" style="margin-bottom:20px">{{details.heading}}</h2>
+          <ul class="info-list">
+            <li>
+              <div class="info-k"><i class="fa-solid fa-location-dot" aria-hidden="true"></i>Address</div>
+              <div class="info-v">
+                <a href="https://www.google.com/maps/search/?api=1&amp;query={{mapq}}" target="_blank" rel="noopener">{{business.street}}<br>{{business.cityLine}}</a>
+                <small>{{business.directionsNote}}</small>
+              </div>
+            </li>
+            <li>
+              <div class="info-k"><i class="fa-solid fa-phone" aria-hidden="true"></i>Phone</div>
+              <div class="info-v"><a href="{{phoneHref}}">{{business.phone}}</a><small>{{details.phoneNote}}</small></div>
+            </li>
+            <li>
+              <div class="info-k"><i class="fa-solid fa-envelope" aria-hidden="true"></i>Email</div>
+              <div class="info-v"><a href="mailto:{{attr business.email}}">{{business.email}}</a><small>{{details.emailNote}}</small></div>
+            </li>
+            <li>
+              <div class="info-k"><i class="fa-solid fa-share-nodes" aria-hidden="true"></i>Social</div>
+              <div class="info-v">
+                {{#each socialLinks}}<a href="{{attr url}}" target="_blank" rel="noopener"><i class="fa-brands {{icon}}" aria-hidden="true"></i>{{label}}</a>{{#unless @last}} &nbsp;{{/unless}}
+                {{/each}}<small>{{details.socialNote}}</small>
+              </div>
+            </li>
+          </ul>
+
+          <div class="map" style="margin-top:26px">
+            <iframe
+              title="{{attr business.shortName}} location: {{attr mapTitleAddress}}"
+              src="https://www.google.com/maps?q={{mapEmbedQ}}&amp;output=embed"
+              width="100%" height="100%" style="border:0" loading="lazy"
+              referrerpolicy="no-referrer-when-downgrade" allowfullscreen></iframe>
+            <div class="map-label">
+              <b>{{business.mapLabel}}</b>
+              <a href="https://www.google.com/maps/dir/?api=1&amp;destination={{mapq}}"
+                 target="_blank" rel="noopener">Directions <i class="fa-solid fa-up-right-from-square" aria-hidden="true"></i></a>
+            </div>
+          </div>
+        </div>
+
+        <div data-reveal data-reveal-delay="120" id="book">
+          <h2 class="h-sub" style="margin-bottom:8px">{{form.heading}}</h2>
+          <p class="body" style="margin-bottom:24px">{{form.intro}}</p>
+
+          <form class="form" data-form name="contact" method="POST"
+                data-netlify="true" data-send="netlify" netlify-honeypot="bot-field"
+                data-success="{{attr form.successMessage}}"
+                data-error="{{attr form.errorMessage}}">
+            <input type="hidden" name="form-name" value="contact">
+            <input type="hidden" name="subject" value="New request from the website">
+            <p style="display:none"><label>Leave this empty: <input name="bot-field" tabindex="-1" autocomplete="off"></label></p>
+            <div class="field-row">
+              <div class="field">
+                <label for="c-name">Name <i>*</i></label>
+                <input id="c-name" name="name" type="text" required autocomplete="name" placeholder="Your name">
+                <span class="field-err">Please tell us your name.</span>
+              </div>
+              <div class="field">
+                <label for="c-phone">Phone</label>
+                <input id="c-phone" name="phone" type="tel" autocomplete="tel" placeholder="352-555-0100">
+                <span class="field-err">That doesn't look like a phone number.</span>
+              </div>
+            </div>
+
+            <div class="field">
+              <label for="c-email">Email <i>*</i></label>
+              <input id="c-email" name="email" type="email" required autocomplete="email" placeholder="you@example.com">
+              <span class="field-err">Please enter a valid email address.</span>
+            </div>
+
+            <div class="field">
+              <label for="c-service">What do you need? <i>*</i></label>
+              <select id="c-service" name="service" required>
+                <option value="">Choose one…</option>
+                {{#each form.serviceChoices}}<option>{{this}}</option>
+                {{/each}}</select>
+              <span class="field-err">Pick the closest option. We'll sort out the detail.</span>
+            </div>
+
+            <div class="field">
+              <label for="c-msg">Project details <i>*</i></label>
+              <textarea id="c-msg" name="message" required
+                        placeholder="{{attr form.messageHint}}"></textarea>
+              <span class="field-err">A sentence or two is plenty to get started.</span>
+            </div>
+
+            <div class="form-foot">
+              <button class="btn btn--sewn" type="submit"><i class="fa-solid fa-paper-plane" aria-hidden="true"></i>{{form.buttonLabel}}</button>
+              <p class="form-note">Or call <a href="{{phoneHref}}" style="color:var(--fg)">{{business.phone}}</a> (often faster).</p>
+            </div>
+            <p class="form-status" role="status"></p>
+          </form>
+        </div>
+
+      </div>
+    </div>
+  </section>

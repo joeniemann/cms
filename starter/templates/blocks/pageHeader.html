@@ -1,0 +1,14 @@
+  <section class="band band--{{look}} phead{{backdropClass backdrop}}">
+    <div class="wrap">
+      <div class="phead-grid">
+        <div data-reveal>
+          <div class="eyebrow">{{eyebrow}}</div>
+          <h1 class="h-display">{{br headline}}</h1>
+          <p class="lede">{{intro}}</p>
+        </div>
+        {{#if facts}}<div class="phead-stats{{alignClass factsAlign}}" data-reveal data-reveal-delay="120">
+          {{#each facts}}<div class="phead-stat"><b>{{big}}</b><span>{{label}}</span></div>
+          {{/each}}</div>
+        {{/if}}</div>
+    </div>
+  </section>

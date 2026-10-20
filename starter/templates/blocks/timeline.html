@@ -1,0 +1,17 @@
+  <section class="band band--{{look}}">
+    <div class="wrap">
+      <div class="about-lead" style="grid-template-columns:.85fr 1.15fr">
+        <div data-reveal>
+          <div class="eyebrow">{{eyebrow}}</div>
+          <h2 class="h-section" style="margin:16px 0 22px">{{br headline}}</h2>
+          <p class="body">{{text}}</p>
+        </div>
+        <ol class="timeline" data-reveal data-reveal-delay="120">
+          {{#each items}}<li>
+            <h3>{{title}}</h3>
+            <p>{{text}}</p>
+          </li>
+          {{/each}}</ol>
+      </div>
+    </div>
+  </section>

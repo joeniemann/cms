@@ -1,0 +1,52 @@
+{
+  "id": "home",
+  "type": "home",
+  "file": "index.html",
+  "title": "Your Business Name | What you do, City ST",
+  "description": "One sentence about what you do and where.",
+  "showCallBand": true,
+  "blocks": [
+    {
+      "type": "pageHeader",
+      "look": "dark",
+      "eyebrow": "Welcome",
+      "headline": "Your headline\ngoes here",
+      "intro": "A short welcome. Say who you help and how.",
+      "facts": []
+    },
+    {
+      "type": "cardRow",
+      "look": "dark",
+      "style": "linked",
+      "eyebrow": "What we do",
+      "headline": "Three things,\none shop",
+      "intro": "A short line about your business.",
+      "cards": [
+        {
+          "label": "Service one",
+          "title": "What it is",
+          "text": "A sentence about it.",
+          "link": {
+            "page": "contact"
+          }
+        },
+        {
+          "label": "Service two",
+          "title": "What it is",
+          "text": "A sentence about it.",
+          "link": {
+            "page": "contact"
+          }
+        },
+        {
+          "label": "Service three",
+          "title": "What it is",
+          "text": "A sentence about it.",
+          "link": {
+            "page": "contact"
+          }
+        }
+      ]
+    }
+  ]
+}

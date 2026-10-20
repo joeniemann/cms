@@ -1,0 +1,475 @@
+/* ============================================================
+   Site — site stylesheet
+   Cut & Sewn direction. One typeface throughout; hierarchy from
+   weight, size, case and tracking only.
+
+   SURFACE SYSTEM
+   The hero committed to a single dark world. The Services brief
+   needs dark (fabrication), light (upholstery) and mixed (powder
+   coating), so surfaces are now a band-level concern: .band--dark
+   and .band--light redefine a small set of surface tokens, and
+   every component reads only those. Brand tokens (molten, vinyl,
+   thread) never change between surfaces.
+   ============================================================ */
+
+:root{
+  /* ---- brand: fabrication heat ---- */
+  --molten:#FF5A1F;
+  --flare:#FFB35C;
+  --hot:#FFF6E6;
+  /* ---- brand: upholstery vinyl ---- */
+  --vinyl:#E8762B;
+  --vinyl-lt:#F79A4B;
+  --vinyl-dk:#8F4212;
+  --thread:#FFFFFF;
+  /* ---- chrome ---- */
+  --chrome-hi:#F4F8FB;
+  --chrome-mid:#9BA4AC;
+  --chrome-lo:#2F353B;
+  /* ---- fixed grounds ---- */
+  --void:#08090A;
+  --pitch:#050607;
+  --navy:#102532;
+  --chalk:#F7F5F1;
+  --ink:#14161A;
+
+  /* ---- surface tokens (dark is the default) ---- */
+  --bg:var(--void);
+  --bg-raised:#0C0E10;
+  --fg:#F6F1E9;
+  --fg-dim:#A8B0B8;
+  --fg-faint:#6F757D;
+  --rule:#262B31;
+  --rule-soft:#1A1E23;
+  --accent:var(--molten);
+
+  --font:Arial,"Helvetica Neue",Helvetica,"Liberation Sans",sans-serif;
+  --nav-h:68px;
+  --ease:cubic-bezier(.2,.8,.2,1);
+  --measure:64ch;
+  /* Full-bleed layout. Nothing is capped to a fixed column any more — the
+     gutter grows with the viewport instead, so the page fills the screen at
+     every size. Readability is protected at the TEXT level (--measure, .lede,
+     .body) rather than by squeezing the whole layout into a narrow strip. */
+  --gutter:clamp(18px,4.5vw,104px);
+}
+
+.band--dark{
+  --bg:var(--void); --bg-raised:#0C0E10;
+  --fg:#F6F1E9; --fg-dim:#A8B0B8; --fg-faint:#6F757D;
+  --rule:#262B31; --rule-soft:#1A1E23;
+  --accent:var(--molten);
+}
+.band--light{
+  --bg:var(--chalk); --bg-raised:#FFFFFF;
+  --fg:var(--ink); --fg-dim:#4A4F56; --fg-faint:#82888F;
+  --rule:#DCD8D1; --rule-soft:#E8E5DF;
+  --accent:var(--vinyl);
+}
+
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
+  margin:0;background:var(--void);color:#F6F1E9;
+  font-family:var(--font);line-height:1.62;
+  -webkit-font-smoothing:antialiased;overflow-x:hidden;
+}
+img{max-width:100%;display:block}
+h1,h2,h3,h4,p,figure,ul,ol{margin:0}
+a{color:inherit}
+::selection{background:var(--molten);color:#08090A}
+:focus-visible{outline:2px solid var(--accent);outline-offset:3px}
+
+.wrap{width:100%;margin:0 auto;padding:0 var(--gutter)}
+.band{background:var(--bg);color:var(--fg);position:relative}
+.band > .wrap{padding-top:clamp(48px,7vw,116px);padding-bottom:clamp(48px,7vw,116px)}
+
+/* ---------- type roles ---------- */
+.eyebrow{
+  font-size:16px;font-weight:700;letter-spacing:.22em;text-transform:uppercase;
+  color:var(--accent);
+}
+.h-display{
+  font-weight:700;text-transform:uppercase;letter-spacing:-.026em;line-height:.94;
+  font-size:clamp(34px,6.6vw,84px);text-wrap:balance;
+}
+.h-section{
+  font-weight:700;text-transform:uppercase;letter-spacing:-.022em;line-height:.98;
+  font-size:clamp(26px,4.2vw,54px);text-wrap:balance;
+}
+.h-sub{
+  font-weight:700;text-transform:uppercase;letter-spacing:-.012em;line-height:1.06;
+  font-size:clamp(18px,2.1vw,25px);
+}
+.lede{font-size:clamp(15px,1.5vw,18px);line-height:1.66;color:var(--fg-dim);max-width:56ch}
+.body{color:var(--fg-dim);max-width:var(--measure)}
+.label{font-size:9.5px;font-weight:700;letter-spacing:.22em;text-transform:uppercase;color:var(--fg-faint)}
+
+/* ---------- buttons: two species ---------- */
+.btn{
+  display:inline-flex;align-items:center;gap:10px;
+  font-family:var(--font);font-size:11px;font-weight:700;letter-spacing:.18em;
+  text-transform:uppercase;text-decoration:none;cursor:pointer;border:0;
+  transition:transform .16s var(--ease),box-shadow .3s,color .3s,border-color .3s,background .3s;
+}
+/* sewn — primary */
+.btn--sewn{
+  position:relative;padding:16px 28px;border-radius:40px;
+  background:var(--vinyl);color:#1C0F05;box-shadow:0 9px 24px rgba(0,0,0,.32);
+}
+.btn--sewn::after{
+  content:"";position:absolute;inset:5px;border-radius:34px;
+  border:1.5px dashed rgba(28,15,5,.52);transition:inset .2s,border-color .3s;
+}
+.btn--sewn:hover{transform:translateY(2px);box-shadow:0 3px 10px rgba(0,0,0,.38)}
+.btn--sewn:hover::after{inset:4px;border-color:rgba(28,15,5,.88)}
+/* heated — secondary, dark surfaces */
+.btn--heat{
+  --mx:50%;--my:50%;
+  position:relative;overflow:hidden;isolation:isolate;padding:17px 27px;border-radius:2px;
+  border:1px solid #454A51;background:linear-gradient(180deg,#2F343A,#1B1E22);color:var(--hot);
+}
+.btn--heat::before{
+  content:"";position:absolute;inset:0;z-index:-1;opacity:0;transition:opacity .38s;
+  background:radial-gradient(circle 150px at var(--mx) var(--my),#FFF2DD 0%,var(--molten) 26%,#A12800 58%,transparent 78%);
+}
+.btn--heat:hover{color:#180A02;border-color:var(--molten)}
+.btn--heat:hover::before{opacity:1}
+.btn--heat:active{transform:translateY(1px)}
+/* machined — secondary, light surfaces */
+.btn--line{
+  padding:16px 27px;border-radius:2px;background:transparent;
+  border:1.5px solid var(--fg);color:var(--fg);
+}
+.btn--line:hover{background:var(--fg);color:var(--bg)}
+
+/* ---------- nav ---------- */
+.nav{
+  position:sticky;top:0;z-index:900;height:var(--nav-h);
+  background:rgba(5,6,7,.92);border-bottom:1px solid #22262B;
+  backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);
+}
+.nav-in{width:100%;margin:0 auto;padding:0 var(--gutter);height:100%;display:flex;align-items:center;gap:24px}
+.nav-logo{
+  display:flex;align-items:center;gap:10px;text-decoration:none;
+  font-weight:700;text-transform:uppercase;letter-spacing:-.02em;font-size:17px;color:#F6F1E9;
+}
+/* the real logo is 1.42:1, so height drives it and width follows.
+   fill:currentColor on the artwork means this one rule colours it. */
+.nav-logo svg{height:30px;width:auto;flex:none;color:var(--accent)}
+.nav-logo i{font-style:normal;color:var(--molten)}
+
+/* Two-line wordmark. The second line is tracked out to sit flush under the
+   first, so the pair reads as one lockup rather than a caption. Tracking,
+   not a width hack — it stays flush as the type scales. */
+.nav-word{display:flex;flex-direction:column;align-items:flex-start;gap:3px;line-height:1}
+.nav-word b{font-weight:700;letter-spacing:-.02em}
+.nav-word em{
+  /* em, not px: the logo shrinks at mobile and the second line has to shrink
+     with it or the lockup stops being flush. Tracking is em for the same reason. */
+  font-style:normal;font-size:.4706em;font-weight:700;letter-spacing:.1078em;
+  color:#F6F1E9;white-space:nowrap;
+  margin-right:-.1078em;              /* letter-spacing trails the last glyph */
+}
+.nav-links{display:flex;gap:2px;margin-left:auto;align-items:center}
+.nav-links a{
+  position:relative;overflow:hidden;z-index:0;
+  font-size:10.5px;font-weight:700;letter-spacing:.18em;text-transform:uppercase;
+  color:#C9CDD3;text-decoration:none;padding:10px 14px;border-radius:2px;transition:color .3s;
+}
+.nav-links a::before{
+  content:"";position:absolute;inset:0;z-index:-1;background:#F6F1E9;
+  transform:scaleX(0);transform-origin:left;transition:transform .34s var(--ease);
+}
+.nav-links a:hover{color:#08090A}
+.nav-links a:hover::before{transform:scaleX(1)}
+.nav-links a[aria-current="page"]{color:var(--molten)}
+.nav-item{position:relative;display:flex;align-items:center}
+.nav-item.has-sub > a{padding-right:6px}
+.sub-toggle{position:relative;z-index:1;background:none;border:0;color:#C9CDD3;cursor:pointer;font-size:9px;padding:10px 12px 10px 4px;transition:color .3s,transform .3s}
+.sub-toggle:hover{color:#F6F1E9}
+.nav-item.open .sub-toggle{transform:rotate(180deg)}
+.nav-item.has-current > a{color:var(--molten)}
+.nav-sub{
+  position:absolute;top:100%;left:0;min-width:220px;z-index:950;
+  display:none;flex-direction:column;gap:0;padding:6px;
+  background:linear-gradient(180deg,#2F343A,#1B1E22);border:1px solid #454A51;border-radius:2px;
+  box-shadow:0 14px 30px rgba(0,0,0,.45);
+}
+.nav-sub a{padding:12px 14px;white-space:nowrap}
+.nav-sub a{transition:none}
+.nav-sub a::before{display:none}
+.nav-sub a:hover,.nav-sub a:focus-visible{background:#F6F1E9;color:#08090A}
+.nav-item:hover .nav-sub,.nav-item:focus-within .nav-sub,.nav-item.open .nav-sub{display:flex}
+.nav-cta{margin-left:14px}
+.nav-cta .btn{padding:12px 20px}
+.nav-toggle{
+  display:none;margin-left:auto;width:44px;height:44px;border:1px solid #2E3339;border-radius:2px;
+  background:transparent;cursor:pointer;padding:0;place-items:center;
+}
+.nav-toggle span{display:block;width:18px;height:1.5px;background:#F6F1E9;margin:3.5px auto;transition:transform .3s var(--ease),opacity .2s}
+.nav-toggle[aria-expanded="true"] span:nth-child(1){transform:translateY(5px) rotate(45deg)}
+.nav-toggle[aria-expanded="true"] span:nth-child(2){opacity:0}
+.nav-toggle[aria-expanded="true"] span:nth-child(3){transform:translateY(-5px) rotate(-45deg)}
+.nav-drawer{
+  position:fixed;inset:var(--nav-h) 0 auto 0;z-index:899;
+  background:rgba(5,6,7,.985);border-bottom:1px solid #22262B;
+  display:grid;grid-template-rows:0fr;transition:grid-template-rows .4s var(--ease);
+}
+.nav-drawer[data-open="true"]{grid-template-rows:1fr}
+.nav-drawer-in{overflow:hidden}
+.nav-drawer nav{display:flex;flex-direction:column;padding:8px var(--gutter) 24px}
+.nav-drawer a{
+  font-size:15px;font-weight:700;text-transform:uppercase;letter-spacing:.1em;
+  color:#F6F1E9;text-decoration:none;padding:15px 0;border-bottom:1px solid #1A1E23;
+}
+.nav-drawer a[aria-current="page"]{color:var(--molten)}
+.nav-drawer .btn{margin-top:20px;justify-content:center}
+.nav-drawer a.sub-link{font-size:13px;color:#C9CDD3;padding:12px 0 12px 22px}
+
+/* ---------- page header ---------- */
+.phead{position:relative;overflow:hidden;border-bottom:1px solid var(--rule)}
+.phead > .wrap{padding-top:clamp(52px,7vw,96px);padding-bottom:clamp(40px,5vw,68px)}
+.phead .eyebrow{margin-bottom:18px}
+.phead .lede{margin-top:20px}
+.phead-grid{display:grid;grid-template-columns:1.25fr .75fr;gap:clamp(24px,5vw,64px);align-items:end}
+/* Stats read as cut plates: a torch-hot kerf along the top edge, the figure
+   set large in the surface accent. Used on Services, Gallery and Contact. */
+.phead-stats{display:flex;gap:12px;flex-wrap:wrap}
+.phead-stats--center .phead-stat{text-align:center}
+.phead-stats--right .phead-stat{text-align:right}
+.phead-stat{
+  position:relative;flex:1 1 152px;min-width:134px;overflow:hidden;
+  padding:24px 20px 18px;border:1px solid var(--rule);border-radius:3px;
+  background:var(--bg-raised);
+}
+.phead-stat::before{
+  content:"";position:absolute;left:0;right:0;top:0;height:2px;
+  background:linear-gradient(90deg,transparent,var(--accent) 20%,var(--hot) 50%,var(--accent) 80%,transparent);
+}
+.phead-stat b{
+  display:block;font-size:clamp(42px,5.4vw,74px);font-weight:700;
+  letter-spacing:-.05em;line-height:.86;color:var(--accent);
+  font-variant-numeric:tabular-nums;
+}
+.phead-stat span{
+  display:block;margin-top:11px;font-size:10px;font-weight:700;letter-spacing:.18em;
+  text-transform:uppercase;color:var(--fg-faint);
+}
+.band--dark .phead-stat b{text-shadow:0 0 30px rgba(255,90,31,.34)}
+
+/* ---------- reveal on scroll ---------- */
+[data-reveal]{opacity:0;transform:translateY(22px);transition:opacity .8s var(--ease),transform .8s var(--ease)}
+[data-reveal].in{opacity:1;transform:none}
+
+/* ---------- CTA band (shared, every page) ---------- */
+.cta-band{position:relative;overflow:hidden;background:var(--pitch);color:#F6F1E9;border-top:1px solid #22262B}
+.cta-band::before{
+  content:"";position:absolute;left:-8%;top:-45%;width:56%;height:190%;
+  background:radial-gradient(closest-side,rgba(255,90,31,.26),transparent 72%);
+  animation:ctaBreathe 8s ease-in-out infinite alternate;
+}
+@keyframes ctaBreathe{from{opacity:.5;transform:translateX(0)}to{opacity:1;transform:translateX(18%)}}
+/* This band is not a .band, so it never picked up the shared vertical
+   padding — it had none at all. Content is centred as a group rather than
+   pushed to opposite edges, which spread very wide once the layout went
+   full-bleed. */
+.cta-band .wrap{
+  position:relative;
+  padding-top:clamp(50px,6vw,70px);padding-bottom:clamp(50px,6vw,70px);
+  display:flex;gap:clamp(26px,4vw,60px);
+  align-items:center;justify-content:center;flex-wrap:wrap;
+  text-align:center;
+}
+.cta-band h2{font-weight:700;text-transform:uppercase;letter-spacing:-.028em;line-height:.9;font-size:clamp(30px,5.4vw,68px)}
+/* The copy block shrinks to its widest child and is centred as a unit, with
+   its contents left-aligned inside. That gives the heading and paragraph a
+   shared left edge while the block itself stays centred in the band. */
+.cta-copy{width:fit-content;max-width:100%;text-align:left}
+.cta-band p{margin:14px 0 0;color:#BFC4CA;max-width:42ch}
+
+/* ---------- plasma-cut headline (from the FORGE hero) ----------
+   A torch sweeps the type open left to right: everything behind the cut is
+   revealed white-hot and cools to steel, with a glowing kerf at the cut point.
+   --cut defaults to 100% so with no JS, reduced motion, or in a background
+   tab the headline reads as finished steel rather than rendering blank. */
+.cut-row{position:relative;display:inline-block;--cut:100%;--heat:0;--cutting:0}
+.cut-base,.cut-hot{
+  -webkit-mask-image:linear-gradient(90deg,#000 0,#000 var(--cut),transparent var(--cut));
+          mask-image:linear-gradient(90deg,#000 0,#000 var(--cut),transparent var(--cut));
+}
+.cut-base{
+  color:transparent;
+  background:linear-gradient(178deg,#F4F8FB 0%,#9BA4AC 34%,#4A525A 68%,#2F353B 100%);
+  -webkit-background-clip:text;background-clip:text;
+}
+.cut-hot{
+  position:absolute;inset:0;white-space:nowrap;
+  color:transparent;opacity:var(--heat);
+  background:linear-gradient(178deg,var(--hot) 0%,#FFB066 30%,var(--molten) 62%,#C22F00 100%);
+  -webkit-background-clip:text;background-clip:text;
+  filter:drop-shadow(0 0 26px rgba(255,90,31,.62));
+}
+.cut-line{
+  position:absolute;top:-8%;bottom:-8%;width:2px;left:var(--cut);
+  background:linear-gradient(180deg,transparent,var(--hot) 18%,#fff 50%,var(--hot) 82%,transparent);
+  box-shadow:0 0 12px 3px rgba(255,150,60,.9),0 0 46px 14px rgba(255,90,31,.55);
+  opacity:var(--cutting);pointer-events:none;
+}
+.cta-actions{display:flex;gap:12px;flex-wrap:wrap;justify-content:center}
+
+/* ---------- footer ---------- */
+.foot{background:var(--pitch);color:#A8B0B8;border-top:1px solid #1A1E23;padding:clamp(44px,6vw,68px) 0 36px}
+.foot-grid{display:grid;grid-template-columns:1.5fr 1fr 1fr 1.4fr;gap:clamp(22px,4vw,44px)}
+.foot h4{font-size:9.5px;font-weight:700;letter-spacing:.22em;text-transform:uppercase;color:var(--accent);margin-bottom:15px}
+.foot a{color:#A8B0B8;text-decoration:none;font-size:14px;display:block;padding:5px 0;transition:color .2s}
+.foot a:hover{color:var(--molten)}
+/* Footer wordmark: the name set as type, no mark. The header already carries
+   the badge; down here the full name reads better than a second logo.
+   Overrides .foot a, which sets every footer link to 14px grey. */
+.foot-logo{
+  display:inline-block;padding:0;margin-bottom:6px;
+  font-size:clamp(17px,1.5vw,21px);font-weight:700;text-transform:uppercase;
+  letter-spacing:-.01em;line-height:1.1;color:#F6F1E9;text-decoration:none;
+}
+.foot a.foot-logo{color:#F6F1E9;font-size:clamp(17px,1.5vw,21px);transition:none}
+.foot-logo i{font-style:normal;color:var(--molten)}
+/* No hover state. The generic .foot a:hover turns every footer link molten,
+   which would swallow the wordmark — hold both colours explicitly instead. */
+.foot a.foot-logo:hover,
+.foot a.foot-logo:focus-visible{color:#F6F1E9}
+.foot a.foot-logo:hover i,
+.foot a.foot-logo:focus-visible i{color:var(--molten)}
+
+.foot-blurb{font-size:14px;line-height:1.66;color:#8A9198;max-width:32ch;margin-top:12px}
+.foot-social{display:flex;gap:9px;margin-top:16px}
+.foot-social a{
+  width:38px;height:38px;display:grid;place-items:center;border:1px solid #262B31;border-radius:2px;
+  font-size:9.5px;font-weight:700;letter-spacing:.06em;color:#A8B0B8;padding:0;
+}
+.foot-social a:hover{border-color:var(--molten);color:var(--molten)}
+.news-form{display:flex;margin-top:12px;max-width:340px}
+.news-form input{
+  flex:1;min-width:0;background:#0E1113;border:1px solid #262B31;border-right:0;color:#F6F1E9;
+  padding:14px 14px;font-family:var(--font);font-size:12px;letter-spacing:.06em;border-radius:2px 0 0 2px;
+}
+.news-form input::placeholder{color:#5D636B}
+.news-form input:focus{outline:none;border-color:var(--molten)}
+.news-form button{border-radius:0 2px 2px 0;padding:14px 18px;white-space:nowrap}
+.foot-note{font-size:12px;color:#6F757D;margin-top:10px}
+.foot-legal{
+  margin-top:40px;padding-top:22px;border-top:1px solid #1A1E23;
+  display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap;
+  font-size:9.5px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:#5D636B;
+}
+
+/* ---------- form status pill (used by newsletter + contact) ---------- */
+.form-status{
+  margin-top:12px;font-size:12.5px;line-height:1.5;display:none;
+  padding:10px 13px;border-radius:2px;border:1px solid;
+}
+.form-status[data-state="ok"]{display:block;color:#8FE3B0;border-color:rgba(143,227,176,.4);background:rgba(143,227,176,.08)}
+.form-status[data-state="err"]{display:block;color:#FF9A72;border-color:rgba(255,154,114,.4);background:rgba(255,154,114,.08)}
+.band--light .form-status[data-state="ok"]{color:#1B6B3F;border-color:rgba(27,107,63,.35);background:rgba(27,107,63,.07)}
+.band--light .form-status[data-state="err"]{color:#A32D06;border-color:rgba(163,45,6,.35);background:rgba(163,45,6,.07)}
+
+/* ---------- responsive tiers ----------
+   Type and spacing are fluid via clamp(), so these only handle the points
+   where the STRUCTURE has to change: column counts, and nav → drawer. */
+
+/* laptops — the footer's four columns stop earning their width */
+@media (max-width:1180px){
+  .foot-grid{grid-template-columns:1fr 1fr;gap:32px}
+}
+/* tablets landscape — split page headers stack */
+@media (max-width:1024px){
+  .phead-grid{grid-template-columns:1fr;gap:28px}
+  .phead-stats{gap:22px}
+}
+/* the nav runs out of room well before 760: four links plus a pill CTA */
+@media (max-width:920px){
+  .nav-links,.nav-cta{display:none}
+  .nav-toggle{display:grid}
+}
+/* tablets portrait and below */
+@media (max-width:680px){
+  :root{--nav-h:60px}
+  .foot-grid{grid-template-columns:1fr;gap:30px}
+  .cta-band .wrap{flex-direction:column;align-items:center;gap:26px}
+  .cta-actions{width:100%}
+  .cta-actions .btn{flex:1;justify-content:center}
+  .news-form{max-width:none}
+  .foot-legal{flex-direction:column;gap:8px}
+}
+/* micro-type (eyebrows, labels, legal) is set tight for desktop editorial
+   texture; on a phone it has to come back up to a readable size */
+@media (max-width:560px){
+  /* keep the 16px size; pull the tracking in so it still fits a phone */
+  .eyebrow{letter-spacing:.14em}
+  .label,.foot h4{font-size:10.5px;letter-spacing:.18em}
+  .foot-legal{font-size:10.5px}
+  .foot a{font-size:15px}
+  .phead-stat span{font-size:10.5px}
+}
+/* phones — stop buttons and stat rows from bursting the gutter */
+@media (max-width:460px){
+  .btn{font-size:10px;letter-spacing:.14em}
+  .btn--sewn{padding:15px 20px}
+  .btn--heat,.btn--line{padding:15px 18px}
+  .phead-stats{gap:18px}
+  .phead-stat b{font-size:26px}
+  .news-form{flex-direction:column;gap:8px}
+  .news-form input{border-right:1px solid var(--rule);border-radius:2px}
+  .news-form button{border-radius:2px;width:100%;justify-content:center}
+  .nav-logo span{font-size:15px}
+}
+/* very wide — keep the gutter from swallowing the page */
+@media (min-width:2200px){
+  :root{--gutter:clamp(104px,6vw,220px)}
+}
+@media (prefers-reduced-motion:reduce){
+  html{scroll-behavior:auto}
+  *,*::before,*::after{animation-duration:.001ms!important;animation-iteration-count:1!important;transition-duration:.001ms!important}
+  [data-reveal]{opacity:1;transform:none}
+}
+
+/* ============================================================
+   ICONS — Font Awesome 6 Free, self-hosted in assets/vendor/fontawesome.
+   Vendored rather than CDN-linked: the published preview runs under a CSP
+   that blocks external hosts, so a CDN link would fail there silently.
+
+   One rule applies everywhere: icons inherit colour from their context and
+   never carry meaning on their own — every icon-only control keeps a real
+   aria-label, and the <i> is aria-hidden. If the webfont fails to load the
+   glyph is simply absent; nothing becomes unusable or unlabelled.
+
+   Letter-spacing is zeroed on every icon. Our buttons and labels are tracked
+   out to .18em, and that tracking is applied AFTER the glyph too — which
+   shoves an icon off optical centre and fattens the gap beside it.
+   ============================================================ */
+.btn i,
+.info-k i,
+.info-v a i,
+.foot-social a i,
+.lb-btn i,
+.map-label a i{letter-spacing:0}
+
+/* buttons: .btn is already inline-flex with a 10px gap, so the icon just
+   needs a size that holds against 11px tracked caps */
+.btn i{font-size:12px;line-height:1;flex:none}
+.btn--heat i.fa-arrow-right{font-size:11px;transition:transform .22s var(--ease)}
+.btn--heat:hover i.fa-arrow-right{transform:translateX(3px)}
+
+/* footer social: the 38px square now holds a glyph instead of "FB" */
+.foot-social a i{font-size:15px;line-height:1}
+
+/* contact info list: the key gets a fixed-width icon so the labels stay
+   flush no matter how wide the glyph is */
+.info-k{display:flex;align-items:center;gap:8px}
+.info-k i{width:13px;text-align:center;font-size:12px;color:var(--accent);flex:none}
+.info-v a i{margin-right:7px;font-size:12px;opacity:.75}
+.map-label a i{margin-left:6px;font-size:10px}
+
+/* lightbox: chevrons read better a touch smaller than the old ‹ › glyphs */
+.lb-btn i{font-size:17px;line-height:1}
+.lb-close i{font-size:19px}

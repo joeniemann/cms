@@ -1,0 +1,9 @@
+[build]
+  command = "npx cms build"
+  publish = "dist"
+
+[build.environment]
+  NODE_VERSION = "22"
+
+[functions]
+  included_files = ["templates/**", "content/**", "cms/blocks.json", "cms.config.json"]

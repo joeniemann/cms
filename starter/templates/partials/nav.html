@@ -1,0 +1,29 @@
+<a class="skip" href="#main">Skip to content</a>
+<header class="nav">
+  <div class="nav-in">
+    <a class="nav-logo" href="index.html" aria-label="{{attr business.name}}, home">
+      <span class="nav-word"><b>{{business.name}}</b></span>
+    </a>
+
+    <nav class="nav-links" aria-label="Primary">
+      {{#each menuTree}}{{#if children}}<div class="nav-item has-sub"><a href="{{href this}}">{{label}}</a><button class="sub-toggle" type="button" aria-expanded="false" aria-label="Show the {{attr label}} pages"><i class="fa-solid fa-chevron-down" aria-hidden="true"></i></button><div class="nav-sub">{{#each children}}<a href="{{href this}}">{{label}}</a>{{/each}}</div></div>{{else}}<a href="{{href this}}">{{label}}</a>{{/if}}{{/each}}
+    </nav>
+    <div class="nav-cta">
+      <!-- ACUITY: replace href with the real booking link once the account exists -->
+      <a class="btn btn--sewn" href="{{href menu.button.link}}" data-acuity><i class="fa-solid fa-calendar-check" aria-hidden="true"></i>{{menu.button.label}}</a>
+    </div>
+
+    <button class="nav-toggle" type="button" aria-expanded="false" aria-controls="nav-drawer" aria-label="Menu">
+      <span></span><span></span><span></span>
+    </button>
+  </div>
+</header>
+
+<div class="nav-drawer" id="nav-drawer" data-open="false">
+  <div class="nav-drawer-in">
+    <nav aria-label="Mobile">
+      {{#each menuTree}}<a href="{{href this}}">{{label}}</a>{{#each children}}<a class="sub-link" href="{{href this}}">{{label}}</a>{{/each}}{{/each}}
+      <a class="btn btn--sewn" href="{{href menu.button.link}}" data-acuity><i class="fa-solid fa-calendar-check" aria-hidden="true"></i>{{menu.button.label}}</a>
+    </nav>
+  </div>
+</div>

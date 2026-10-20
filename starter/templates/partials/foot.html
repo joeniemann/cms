@@ -1,0 +1,49 @@
+<footer class="foot">
+  <div class="wrap">
+    <div class="foot-grid">
+      <div>
+        <a class="foot-logo" href="index.html" aria-label="{{attr business.name}}, home">Finish<i>Lines</i> Creative Concepts</a>
+        <p class="foot-blurb">{{business.description}}</p>
+        <div class="foot-social">
+          {{#each socialLinks}}<a href="{{attr url}}" target="_blank" rel="noopener" aria-label="{{attr business.shortName}} on {{label}}"><i class="fa-brands {{icon}}" aria-hidden="true"></i></a>
+          {{/each}}</div>
+      </div>
+
+      <div>
+        <h4>Explore</h4>
+        {{#each menuTree}}<a href="{{href this}}">{{#if footerLabel}}{{footerLabel}}{{else}}{{label}}{{/if}}</a>
+        {{/each}}
+      </div>
+
+      <div>
+        <h4>Visit</h4>
+        <a href="https://www.google.com/maps/search/?api=1&amp;query={{mapq}}"
+           target="_blank" rel="noopener">{{business.street}}<br>{{business.cityLine}}</a>
+        <a href="{{phoneHref}}">{{business.phone}}</a>
+        <a href="mailto:{{attr business.email}}">{{business.email}}</a>
+      </div>
+
+      <div>
+        <h4>{{footer.newsletterHeading}}</h4>
+        <p class="foot-blurb" style="margin-top:0">{{footer.newsletterText}}</p>
+        <form class="news-form" data-form name="newsletter" method="POST"
+              data-netlify="true" data-send="netlify" data-keep-subject netlify-honeypot="bot-field"
+              data-success="{{attr footer.newsletterSuccess}}"
+              data-error="{{attr footer.newsletterError}}">
+          <input type="hidden" name="form-name" value="newsletter">
+          <input type="hidden" name="subject" value="New news sign-up from the website">
+          <p style="display:none"><label>Leave this empty: <input name="bot-field" tabindex="-1" autocomplete="off"></label></p>
+          <label for="news-email" class="sr-only">Email address</label>
+          <input id="news-email" name="email" type="email" required placeholder="{{attr footer.newsletterPlaceholder}}" autocomplete="email">
+          <button class="btn btn--heat" type="submit">{{footer.newsletterButton}} <i class="fa-solid fa-arrow-right" aria-hidden="true"></i></button>
+        </form>
+        <p class="form-status" role="status"></p>
+      </div>
+    </div>
+
+    <div class="foot-legal">
+      <span>&copy; <span data-year>2026</span> {{business.name}}</span>
+      <span>{{business.legalLine}}</span>
+    </div>
+  </div>
+</footer>

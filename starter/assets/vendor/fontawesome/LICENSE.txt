@@ -1,0 +1,12 @@
+Font Awesome Free 6.7.2
+https://fontawesome.com
+Vendored (self-hosted) rather than loaded from a CDN: the published preview
+runs under a CSP that blocks every external host, so a CDN link would fail
+silently there. Only the .woff2 faces are shipped; the .ttf fallbacks were
+stripped from the src lists in all.min.css. Nothing else was modified.
+
+Licenses:
+  Icons  — CC BY 4.0        https://creativecommons.org/licenses/by/4.0/
+  Fonts  — SIL OFL 1.1      https://scripts.sil.org/OFL
+  Code   — MIT              https://opensource.org/licenses/MIT
+Full text: https://fontawesome.com/license/free

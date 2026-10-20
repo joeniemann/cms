@@ -1,0 +1,27 @@
+  <section class="band svc svc--pow" id="{{attr anchor}}">
+    <div class="wrap">
+      <div class="svc-grid" style="grid-template-columns:.9fr 1.1fr">
+        <div class="svc-copy" data-reveal>
+          <div class="eyebrow" style="color:var(--flare)">{{eyebrow}}</div>
+          <h2 class="h-section">{{br headline}}</h2>
+          <p class="body" style="color:#BFC4CA">{{text}}</p>
+          <div class="label" style="margin-bottom:10px;color:#8A9198">{{pickerLabel}} <span data-coat-name style="color:#F6F1E9">{{finishes.0.name}}</span></div>
+          <div class="coat-picker" data-coats role="group" aria-label="{{attr pickerAria}}">
+            {{#each finishes}}<button class="coat-sw" style="background:{{attr color}}" data-color="{{attr color}}" aria-pressed="{{pressed @first}}" aria-label="{{attr name}}"></button>
+            {{/each}}</div>
+          <ul class="svc-list" style="margin-top:26px">
+            {{#each details}}<li><b>{{label}}</b><span>{{value}}</span></li>
+            {{/each}}</ul>
+          <a class="btn btn--{{button.style}}" href="{{href button.link}}">{{button.label}}</a>
+        </div>
+        <div class="svc-split" data-reveal data-reveal-delay="120">
+          <div class="svc-half svc-half--raw">
+            <div><h3>{{before.heading}}</h3><p>{{before.text}}</p></div>
+          </div>
+          <div class="svc-half svc-half--coat">
+            <div><h3>{{after.heading}}</h3><p>{{after.text}}</p></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>

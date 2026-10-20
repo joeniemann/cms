@@ -1,0 +1,26 @@
+  <section class="band band--{{look}} svc svc--uph" id="{{attr anchor}}">
+    <div class="wrap">
+      <div class="svc-grid">
+        <figure class="svc-media" id="uph-media" data-reveal>
+          <img src="{{photoSrc swatches.0.photo}}" alt="{{attr swatches.0.alt}}" loading="lazy" decoding="async">
+          <figcaption data-swatch-cap>{{swatches.0.caption}}</figcaption>
+        </figure>
+        <div class="svc-copy" data-reveal data-reveal-delay="120">
+          <div class="eyebrow">{{eyebrow}}</div>
+          <h2 class="h-section">{{br headline}}</h2>
+          <p class="body">{{text}}</p>
+          <div class="label" style="margin-bottom:10px">{{pickerLabel}} <span data-swatch-name style="color:var(--fg)">{{swatches.0.name}}</span></div>
+          <div class="swatches" data-swatches role="group" aria-label="{{attr pickerAria}}">
+            {{#each swatches}}<button class="swatch" style="background:{{attr color}}" aria-pressed="{{pressed @first}}" aria-label="{{attr name}}"
+                    data-img="{{photoSrc photo}}"
+                    data-cap="{{attr caption}}"
+                    data-alt="{{attr alt}}"><span>{{label}}</span></button>
+            {{/each}}</div>
+          <ul class="svc-list" style="margin-top:26px">
+            {{#each details}}<li><b>{{label}}</b><span>{{value}}</span></li>
+            {{/each}}</ul>
+          <a class="btn btn--{{button.style}}" href="{{href button.link}}">{{button.label}}</a>
+        </div>
+      </div>
+    </div>
+  </section>

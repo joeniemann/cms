@@ -1,0 +1,76 @@
+{
+  "business": {
+    "name": "Your Business Name",
+    "shortName": "YBN",
+    "description": "One sentence about what you do and where.",
+    "legalLine": "What you do · City, ST",
+    "street": "123 Main Street",
+    "cityLine": "Your City, ST 00000",
+    "directionsNote": "",
+    "phone": "555-555-0100",
+    "email": "you@example.com",
+    "hours": [
+      {
+        "days": "Mon-Fri",
+        "times": "8am-5pm"
+      },
+      {
+        "days": "Sat",
+        "times": "By appointment"
+      }
+    ],
+    "social": {},
+    "bookingLink": "",
+    "mapLabel": "123 Main St, Your City ST"
+  },
+  "menu": {
+    "items": [
+      {
+        "label": "Contact",
+        "page": "contact",
+        "show": true
+      }
+    ],
+    "button": {
+      "label": "Get in touch",
+      "link": {
+        "page": "contact"
+      }
+    }
+  },
+  "callBand": {
+    "headline": "Set up a call",
+    "text": "Tell us what you're building. We'll talk through materials, timeline and cost. No obligation, no runaround.",
+    "primary": {
+      "label": "Contact Us",
+      "link": {
+        "page": "contact"
+      },
+      "show": true,
+      "style": "sewn"
+    },
+    "secondary": {
+      "label": "Contact Us",
+      "link": {
+        "page": "contact"
+      },
+      "show": false,
+      "style": "heat"
+    }
+  },
+  "footer": {
+    "newsletterHeading": "News & Updates",
+    "newsletterText": "Build photos and shop news. No spam, and never more than once a month.",
+    "newsletterButton": "Sign Up",
+    "newsletterPlaceholder": "EMAIL ADDRESS",
+    "newsletterSuccess": "You're on the list. Let's Go!",
+    "newsletterError": "Something went wrong. Please try again, or call us."
+  },
+  "seo": {
+    "siteUrl": "https://example.com",
+    "serviceArea": "",
+    "shareImage": "",
+    "allowAiCrawlers": true,
+    "redirects": []
+  }
+}

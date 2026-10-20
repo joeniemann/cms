@@ -1,0 +1,23 @@
+{
+  "name": "@joeniemann/cms",
+  "version": "0.1.0",
+  "description": "A simple website editor and page builder for client sites",
+  "bin": {
+    "cms": "bin/cms.js"
+  },
+  "dependencies": {
+    "@netlify/functions": "^5.2.0",
+    "@netlify/identity": "2.0.0"
+  },
+  "engines": {
+    "node": ">=18"
+  },
+  "files": [
+    "bin",
+    "build",
+    "admin",
+    "netlify",
+    "starter",
+    "init.js"
+  ]
+}

@@ -1,0 +1,21 @@
+<section class="cta-band">
+  <div class="wrap">
+    <div class="cta-copy" data-reveal>
+      <h2 class="cut-h2">
+        <span class="cut-row">
+          <span class="cut-base">{{callBand.headline}}</span>
+          <span class="cut-hot" aria-hidden="true">{{callBand.headline}}</span>
+          <span class="cut-line" aria-hidden="true"></span>
+        </span>
+      </h2>
+      <p>{{callBand.text}}</p>
+    </div>
+    <div class="cta-actions" data-reveal data-reveal-delay="120">
+      <!-- ACUITY: swap this href for the Acuity/Squarespace Scheduling link.
+           Looks like https://app.acuityscheduling.com/schedule.php?owner=XXXXXXX
+           To embed the full scheduler inline instead, drop Acuity's iframe here. -->
+      {{#if callBand.primary.show}}<a class="btn btn--{{callBand.primary.style}}" href="{{href callBand.primary.link}}" data-acuity><i class="fa-solid fa-calendar-check" aria-hidden="true"></i>{{callBand.primary.label}}</a>{{/if}}
+      {{#if callBand.secondary.show}}<a class="btn btn--{{callBand.secondary.style}}" href="{{href callBand.secondary.link}}"><i class="fa-solid fa-envelope" aria-hidden="true"></i>{{callBand.secondary.label}}</a>{{/if}}
+    </div>
+  </div>
+</section>

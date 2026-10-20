@@ -1,0 +1,508 @@
+/* ============================================================
+   Site — page-level styles
+   Services / About / Gallery / Contact
+   ============================================================ */
+
+/* ============================================================
+   SERVICES
+   ============================================================ */
+
+/* ---- Services → "What we do" page header: sewing-machine background photo ----
+   .phead already has position:relative + overflow:hidden (site.css), so this
+   just adds the image layer behind the header content. Position keeps the
+   presser foot/needle (upper-left of the source photo) in frame. */
+.band--whatwedo::before{
+  content:"";position:absolute;inset:0;z-index:0;pointer-events:none;
+  background:url('../backgrounds/sewing_bg.jpg') left 20% top 55%/cover no-repeat;
+  opacity:.2;
+}
+.band--whatwedo > .wrap{position:relative;z-index:1}
+
+.svc{position:relative;overflow:hidden;scroll-margin-top:var(--nav-h)}
+.svc-grid{display:grid;grid-template-columns:1.05fr .95fr;gap:clamp(28px,5vw,72px);align-items:center}
+.svc-copy .eyebrow{margin-bottom:16px}
+.svc-copy h2{margin-bottom:20px}
+.svc-copy .body{margin-bottom:26px}
+.svc-list{display:flex;flex-direction:column;gap:0;margin:0 0 28px;list-style:none;padding:0}
+.svc-list li{
+  display:flex;justify-content:space-between;gap:16px;align-items:baseline;
+  padding:13px 0;border-top:1px solid var(--rule-soft);font-size:14.5px;color:var(--fg-dim);
+}
+.svc-list li:last-child{border-bottom:1px solid var(--rule-soft)}
+.svc-list b{color:var(--fg);font-weight:700;font-size:9.5px;letter-spacing:.16em;text-transform:uppercase}
+.svc-media{position:relative;border-radius:3px;overflow:hidden;aspect-ratio:4/5}
+.svc-media img{width:100%;height:100%;object-fit:cover}
+.svc-media figcaption{
+  position:absolute;left:0;bottom:0;z-index:3;padding:9px 13px;
+  font-size:9.5px;font-weight:700;letter-spacing:.15em;text-transform:uppercase;
+}
+
+/* --- 01 Fabrication: dark, plasma torch --- */
+.svc--fab{background:var(--void)}
+.svc--fab::before{
+  content:"";position:absolute;inset:0;pointer-events:none;
+  background:
+    radial-gradient(38% 40% at 22% 42%,rgba(255,214,150,.16),rgba(255,120,40,.07) 48%,transparent 72%),
+    radial-gradient(70% 60% at 12% 55%,rgba(255,90,31,.13),transparent 66%);
+}
+.svc--fab .svc-media img{filter:grayscale(.55) contrast(1.14) brightness(.92)}
+.svc--fab .svc-media figcaption{background:var(--void);color:var(--hot)}
+.svc--fab .svc-media::after{
+  content:"";position:absolute;inset:0;pointer-events:none;
+  box-shadow:inset 0 0 0 1px rgba(255,255,255,.10);
+}
+/* the torch scan — a cut line travelling the media edge */
+.svc-scan{
+  position:absolute;left:0;right:0;height:2px;top:0;z-index:2;pointer-events:none;
+  background:linear-gradient(90deg,transparent,var(--flare) 18%,#fff 50%,var(--flare) 82%,transparent);
+  box-shadow:0 0 14px 3px rgba(255,90,31,.75);
+  animation:svcScan 5.5s linear infinite;
+}
+@keyframes svcScan{0%{top:-2%;opacity:0}10%{opacity:1}90%{opacity:1}100%{top:102%;opacity:0}}
+.spark-canvas{position:absolute;inset:0;width:100%;height:100%;pointer-events:none;z-index:1}
+
+/* --- 02 Upholstery: light, bright colour --- */
+.svc--uph{background:var(--chalk)}
+.svc--uph::before{
+  content:"";position:absolute;inset:0;pointer-events:none;
+  background:radial-gradient(60% 55% at 82% 30%,rgba(232,118,43,.13),transparent 68%);
+}
+.svc--uph .svc-media figcaption{background:var(--ink);color:var(--chalk)}
+/* colour swatch strip — the material choice, made tangible */
+.swatches{display:flex;gap:0;border-radius:3px;overflow:hidden;border:1px solid var(--rule);max-width:460px}
+.swatch{
+  flex:1;height:62px;position:relative;cursor:pointer;border:0;padding:0;
+  transition:flex .35s var(--ease);
+}
+.swatch:hover,.swatch[aria-pressed="true"]{flex:1.9}
+.swatch span{
+  position:absolute;left:8px;bottom:7px;font-size:9.5px;font-weight:700;letter-spacing:.08em;
+  text-transform:uppercase;color:rgba(255,255,255,.95);opacity:0;transition:opacity .3s;
+  text-shadow:0 1px 2px rgba(0,0,0,.6);
+}
+.swatch:hover span,.swatch[aria-pressed="true"] span{opacity:1}
+.swatch[aria-pressed="true"]{box-shadow:inset 0 0 0 3px rgba(255,255,255,.92),0 6px 18px rgba(0,0,0,.25)}
+/* Picking a colour swaps in a boat we actually finished in it. A tint overlay
+   was tried first and rejected: recolouring the whole frame turned the
+   photograph into a duotone instead of changing the upholstery. */
+.svc--uph .svc-media img{transition:opacity .18s var(--ease)}
+/* stitched frame on the upholstery media */
+.svc--uph .svc-media::after{
+  content:"";position:absolute;inset:11px;pointer-events:none;border-radius:2px;
+  border:1.5px dashed rgba(255,255,255,.72);
+}
+
+/* --- 03 Powder Coating: split light / dark --- */
+.svc--pow{background:var(--ink);color:#F6F1E9}
+.svc--pow .svc-split{
+  position:relative;display:grid;grid-template-columns:1fr 1fr;min-height:clamp(340px,42vw,520px);
+  border-radius:3px;overflow:hidden;
+}
+.svc-half{position:relative;display:flex;align-items:flex-end;padding:clamp(20px,3vw,34px)}
+.svc-half--raw{background:linear-gradient(160deg,#3A4148,#181B1F)}
+.svc-half--raw::before{
+  content:"";position:absolute;inset:0;
+  background:repeating-linear-gradient(101deg,rgba(255,255,255,.05) 0 1px,transparent 1px 4px);
+}
+.svc-half--coat{background:linear-gradient(160deg,var(--coat,#E8762B),color-mix(in srgb,var(--coat,#E8762B) 55%,#000));
+  transition:background .5s var(--ease)}
+.svc-half h3{position:relative;font-size:clamp(20px,2.6vw,32px);font-weight:700;text-transform:uppercase;letter-spacing:-.02em}
+.svc-half p{position:relative;margin-top:8px;font-size:13.5px;max-width:26ch;opacity:.86}
+.svc-half--raw h3,.svc-half--raw p{color:#DFE5EA}
+.svc-half--coat h3,.svc-half--coat p{color:#1C0F05}
+.coat-picker{display:flex;gap:9px;margin-top:22px;flex-wrap:wrap}
+.coat-sw{
+  width:38px;height:38px;border-radius:50%;border:2px solid transparent;cursor:pointer;padding:0;
+  box-shadow:inset 0 -6px 12px rgba(0,0,0,.28),inset 0 5px 9px rgba(255,255,255,.42);
+  transition:transform .22s var(--ease);
+}
+.coat-sw:hover{transform:translateY(-4px) scale(1.06)}
+.coat-sw[aria-pressed="true"]{border-color:#F6F1E9;transform:translateY(-3px)}
+
+/* ============================================================
+   ABOUT
+   ============================================================ */
+.about-lead{display:grid;grid-template-columns:1.1fr .9fr;gap:clamp(28px,5vw,70px);align-items:center}
+.about-lead .body p + p{margin-top:16px}
+.about-media{position:relative;border-radius:3px;overflow:hidden;aspect-ratio:4/5}
+.about-media img{width:100%;height:100%;object-fit:cover}
+/* ---- shop mosaic (About) ----
+   A 3-column grid with two feature tiles. Each cell lands near 200-300px,
+   comfortably inside the 750px source files, so nothing upscales. */
+.shop-grid{
+  display:grid;grid-template-columns:repeat(3,1fr);
+  grid-auto-rows:clamp(130px,13.5vw,196px);gap:10px;
+}
+/* the shop section gives the mosaic the wider column and closes the gutter
+   between the two — the copy is measure-capped, so the space was dead */
+.about-lead--shop{grid-template-columns:.78fr 1.22fr;gap:clamp(22px,2.6vw,44px)}
+.shop-tile{position:relative;margin:0;overflow:hidden;border-radius:3px;background:var(--bg-raised)}
+.shop-tile img{width:100%;height:100%;object-fit:cover;display:block;transition:transform .6s var(--ease)}
+.shop-tile:hover img{transform:scale(1.06)}
+.shop-tile--tall{grid-row:span 2}
+.shop-tile--wide{grid-column:span 2}
+.shop-tile::after{
+  content:"";position:absolute;inset:0;pointer-events:none;
+  box-shadow:inset 0 0 0 1px rgba(0,0,0,.10);
+}
+@media (max-width:560px){
+  .shop-grid{grid-auto-rows:96px;gap:8px}
+}
+
+.values{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:16px;margin-top:8px}
+.value{
+  position:relative;border:1px solid var(--rule);border-radius:3px;
+  padding:26px 24px;background:var(--bg-raised);
+  transition:border-color .3s,box-shadow .35s var(--ease),transform .35s var(--ease);
+}
+.value .n{font-size:9.5px;font-weight:700;letter-spacing:.2em;color:var(--accent);margin-bottom:12px}
+/* ---- About → How we work: welding background photo ----
+   Sits behind the band's own dark background at low opacity via a ::before
+   layer, so the section's --bg color still shows through and the content
+   (raised to z-index:1) stays fully legible. */
+.band--howwework{overflow:hidden}
+.band--howwework::before{
+  content:"";position:absolute;inset:0;z-index:0;pointer-events:none;
+  background:url('../backgrounds/weldging_bg.jpg') center 41%/cover no-repeat;
+  opacity:.25;
+}
+.band--howwework > .wrap{position:relative;z-index:1}
+
+/* ---- numbered values (About → How we work) ----
+   The sequence is real information here, so the figure leads: set large,
+   outlined like cut stock, with a hot kerf beneath it. */
+.values--numbered .value{padding-top:22px}
+.values--numbered .value .n{
+  font-size:clamp(46px,5.2vw,68px);line-height:.82;letter-spacing:-.055em;
+  color:transparent;-webkit-text-stroke:1.5px var(--accent);
+  font-variant-numeric:tabular-nums;margin-bottom:16px;
+  transition:color .35s var(--ease),-webkit-text-stroke-color .35s;
+}
+.values--numbered .value:hover .n{color:var(--accent)}
+
+/* ---- About / How We Work: a torch orbits each digit ----
+   Two digits, two cutting heads, started half a lap apart so they read as
+   two independent torches rather than one shape rotating. The digits are
+   split into spans purely for this, so the number carries aria-hidden and
+   the step order is left to the list and the heading.
+
+   Degradation: without @property the angle cannot animate, so the ring
+   paints at its 0deg position and the digits still go molten on hover —
+   same intent, no motion. Same path under reduced-motion. */
+.values--numbered .n .dig{ position:relative; display:inline-block }
+.values--numbered .n .dig::before{
+  content:"";position:absolute;inset:-.12em -.07em;border-radius:4px;pointer-events:none;
+  padding:1.5px;                      /* ring thickness */
+  background:conic-gradient(from var(--torch),
+    transparent 0 68%, var(--flare) 80%, #fff 88%, var(--molten) 94%, transparent 100%);
+  -webkit-mask:linear-gradient(#000 0 0) content-box,linear-gradient(#000 0 0);
+          mask:linear-gradient(#000 0 0) content-box,linear-gradient(#000 0 0);
+  -webkit-mask-composite:xor;
+          mask-composite:exclude;
+  opacity:0;transition:opacity .3s;
+}
+.values--numbered .value:hover .n .dig::before,
+.values--numbered .value:focus-within .n .dig::before{
+  opacity:1;animation:torchOrbit 2.2s linear infinite;
+}
+/* the second head trails the first by half a lap */
+.values--numbered .value:hover .n .dig:last-child::before,
+.values--numbered .value:focus-within .n .dig:last-child::before{ animation-delay:-1.1s }
+
+/* the cut itself: glyph fills hot and throws a little light */
+.values--numbered .value:hover .n .dig,
+.values--numbered .value:focus-within .n .dig{
+  color:var(--hot);-webkit-text-stroke-color:var(--flare);
+  filter:drop-shadow(0 0 10px rgba(255,90,31,.55));
+}
+@media (prefers-reduced-motion:reduce){
+  .values--numbered .value:hover .n .dig::before,
+  .values--numbered .value:focus-within .n .dig::before{ animation:none }
+}
+.value h3{font-size:16px;font-weight:700;margin-bottom:8px;color:var(--fg)}
+.values--numbered .value h3{font-size:20px}
+.value p{font-size:14px;color:var(--fg-dim)}
+
+/* ---- interactive cards: the torch runs the border on hover ----
+   Only anchors get this — About's cards are static <div>s and should not
+   advertise a click. The angle is animated via @property; where that is
+   unsupported the card still lifts, and the border still goes molten with
+   a glow, so the hover state degrades to the same intent. */
+@property --torch{ syntax:"<angle>"; initial-value:0deg; inherits:false }
+
+a.value{text-decoration:none;display:block}
+a.value::before{
+  content:"";position:absolute;inset:-1px;border-radius:inherit;pointer-events:none;
+  padding:1.5px;                      /* ring thickness */
+  background:conic-gradient(from var(--torch),
+    transparent 0 64%, var(--flare) 77%, #fff 86%, var(--molten) 93%, transparent 100%);
+  /* punch the middle out so only the rim shows */
+  -webkit-mask:linear-gradient(#000 0 0) content-box,linear-gradient(#000 0 0);
+          mask:linear-gradient(#000 0 0) content-box,linear-gradient(#000 0 0);
+  -webkit-mask-composite:xor;
+          mask-composite:exclude;
+  opacity:0;transition:opacity .3s;
+}
+a.value:hover,a.value:focus-visible{
+  transform:translateY(-4px);
+  border-color:var(--molten);
+  box-shadow:
+    0 0 0 1px rgba(255,90,31,.30),
+    0 0 30px rgba(255,90,31,.28),
+    0 18px 44px -20px rgba(0,0,0,.65);
+}
+a.value:hover::before,a.value:focus-visible::before{
+  opacity:1;animation:torchOrbit 2.4s linear infinite;
+}
+a.value:hover .n,a.value:focus-visible .n{color:var(--hot)}
+@keyframes torchOrbit{ to{ --torch:360deg } }
+
+/* ---- home: What We Do ----
+   Intro stacks (eyebrow → heading → lede) with the three cards beside it. */
+.whatwedo{
+  display:grid;grid-template-columns:minmax(250px,.82fr) 2.18fr;
+  gap:clamp(28px,4vw,68px);align-items:start;
+}
+.whatwedo-intro .h-section{margin:16px 0 20px}
+.whatwedo-intro .lede{max-width:40ch}
+/* cards sit on the container's baseline rather than floating at the top,
+   so the row of cards and the intro column share a bottom edge */
+.whatwedo .values{
+  margin-top:0;grid-template-columns:repeat(3,minmax(0,1fr));
+  align-self:end;
+}
+/* the service name is the headline of the card here, not a sequence number */
+.whatwedo .value .n{
+  font-size:20px;font-weight:700;letter-spacing:-.01em;text-transform:none;
+  line-height:1.15;margin-bottom:10px;transition:color .3s;
+}
+.whatwedo .value h3{
+  font-size:11px;font-weight:700;letter-spacing:.16em;text-transform:uppercase;
+  color:var(--fg-faint);margin-bottom:10px;
+}
+.timeline{list-style:none;padding:0;margin:0;border-left:1px solid var(--rule)}
+.timeline li{position:relative;padding:0 0 30px 26px}
+.timeline li::before{
+  content:"";position:absolute;left:-4.5px;top:7px;width:8px;height:8px;border-radius:50%;
+  background:var(--accent);
+}
+.timeline h3{font-size:15px;font-weight:700;color:var(--fg);margin-bottom:5px}
+.timeline p{font-size:14px;color:var(--fg-dim);max-width:52ch}
+
+/* ============================================================
+   GALLERY
+   ============================================================ */
+.gal-bar{
+  position:sticky;top:var(--nav-h);z-index:800;
+  background:rgba(8,9,10,.94);backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);
+  border-bottom:1px solid var(--rule);
+}
+.gal-bar-in{
+  width:100%;margin:0 auto;padding:14px var(--gutter);
+  display:flex;gap:8px;align-items:center;flex-wrap:wrap;
+}
+.gal-filter{
+  font-family:var(--font);font-size:10px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;
+  color:#A8B0B8;background:transparent;border:1px solid #262B31;border-radius:40px;
+  padding:9px 15px;cursor:pointer;transition:all .22s;white-space:nowrap;
+}
+.gal-filter:hover{color:#F6F1E9;border-color:#41474E}
+.gal-filter[aria-pressed="true"]{background:#F6F1E9;color:#08090A;border-color:#F6F1E9}
+.gal-filter i{font-style:normal;opacity:.55;margin-left:6px;font-variant-numeric:tabular-nums}
+.gal-count{margin-left:auto;font-size:9.5px;font-weight:700;letter-spacing:.16em;text-transform:uppercase;color:#6F757D}
+
+/* Second tier: sub-categories inside the active trade. Quieter than tier 1
+   — smaller, hairline-topped — so the trade chips stay the primary control. */
+.gal-bar-sub{
+  padding-top:0;padding-bottom:12px;gap:6px;
+  border-top:1px solid rgba(255,255,255,.06);margin-top:2px;padding-top:10px;
+  animation:subIn .26s var(--ease) both;
+}
+.gal-bar-sub[hidden]{display:none}
+.gal-bar-sub .gal-filter{font-size:9.5px;padding:7px 12px;border-radius:40px}
+.gal-bar-sub .gal-filter[aria-pressed="true"]{
+  background:var(--accent);color:#08090A;border-color:var(--accent);
+}
+@keyframes subIn{from{opacity:0;transform:translateY(-4px)}to{opacity:1;transform:none}}
+
+#gal-filters{display:flex;gap:8px;flex-wrap:wrap;min-width:0}
+
+/* Narrow screens: the chips swipe sideways instead of stacking. Wrapped,
+   the two tiers ate 221px of a 390px-wide phone — a filter bar taller than
+   the thumbnails it filters is worse than a swipe. */
+@media (max-width:760px){
+  #gal-filters,.gal-bar-sub{
+    flex-wrap:nowrap;overflow-x:auto;overflow-y:hidden;
+    scroll-snap-type:x proximity;
+    scrollbar-width:none;-ms-overflow-style:none;
+    -webkit-overflow-scrolling:touch;
+  }
+  #gal-filters::-webkit-scrollbar,.gal-bar-sub::-webkit-scrollbar{display:none}
+  #gal-filters .gal-filter,.gal-bar-sub .gal-filter{flex:0 0 auto;scroll-snap-align:start}
+  #gal-filters{flex:1 1 100%}
+  .gal-count{margin-left:0;flex:0 0 100%;padding-top:2px}
+  .gal-bar-in{padding-top:11px;padding-bottom:11px}
+  .gal-bar-sub{padding-bottom:11px}
+}
+@media (prefers-reduced-motion:reduce){.gal-bar-sub{animation:none}}
+
+/* column COUNT is unset so the grid fills whatever width it is given —
+   4 columns on a laptop, 8+ on an ultrawide, without a breakpoint each */
+
+/* The sticky filter bar already separates results from the header, so the
+   band's top padding stacked on the masonry's own just pushed the first row
+   off-screen — 107px of dead black above the thumbnails. Keep the masonry's
+   padding, drop the wrap's. */
+.gal-results > .wrap{padding-top:0}
+
+.masonry{columns:300px;column-gap:16px;padding:clamp(24px,4vw,44px) 0}
+.tile{
+  break-inside:avoid;margin:0 0 14px;position:relative;border-radius:3px;overflow:hidden;
+  background:#0C0E10;cursor:zoom-in;display:block;width:100%;padding:0;border:0;
+  opacity:0;transform:translateY(16px);transition:opacity .5s var(--ease),transform .5s var(--ease);
+}
+.tile.in{opacity:1;transform:none}
+.tile img{width:100%;height:auto;display:block;transition:transform .6s var(--ease)}
+.tile:hover img{transform:scale(1.045)}
+.tile figcaption{
+  position:absolute;inset:auto 0 0 0;padding:26px 13px 11px;text-align:left;
+  background:linear-gradient(0deg,rgba(4,5,6,.9),transparent);
+  font-size:9.5px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:#F6F1E9;
+  opacity:0;transform:translateY(6px);transition:opacity .3s,transform .3s var(--ease);
+}
+.tile:hover figcaption,.tile:focus-visible figcaption{opacity:1;transform:none}
+.gal-empty{padding:70px 0;text-align:center;color:#6F757D;font-size:14px;display:none}
+.gal-empty[data-show="true"]{display:block}
+
+/* lightbox */
+/* padding is tight and only the caption strip is reserved, so the photograph
+   takes essentially the whole viewport rather than sitting in a wide margin */
+.lb{
+  position:fixed;inset:0;z-index:1000;background:rgba(4,5,6,.96);
+  display:none;align-items:center;justify-content:center;
+  padding:clamp(10px,1.6vw,22px) clamp(56px,6vw,84px) clamp(44px,5vh,58px);
+  backdrop-filter:blur(6px);-webkit-backdrop-filter:blur(6px);
+}
+.lb[data-open="true"]{display:flex}
+.lb img{
+  max-width:100%;max-height:100%;width:auto;height:auto;
+  object-fit:contain;border-radius:2px;
+  box-shadow:0 30px 80px -30px rgba(0,0,0,.9);
+}
+.lb-cap{
+  position:absolute;left:0;right:0;bottom:clamp(16px,3vw,34px);text-align:center;
+  font-size:10.5px;font-weight:700;letter-spacing:.16em;text-transform:uppercase;color:#A8B0B8;
+}
+.lb-btn{
+  position:absolute;background:transparent;border:1px solid #33383E;color:#F6F1E9;
+  width:48px;height:48px;border-radius:50%;cursor:pointer;font-size:18px;line-height:1;
+  display:grid;place-items:center;transition:all .22s;
+}
+.lb-btn:hover{border-color:var(--molten);color:var(--molten)}
+.lb-close{top:clamp(14px,3vw,28px);right:clamp(14px,3vw,28px)}
+.lb-prev{left:clamp(10px,2vw,26px);top:50%;transform:translateY(-50%)}
+.lb-next{right:clamp(10px,2vw,26px);top:50%;transform:translateY(-50%)}
+
+/* ============================================================
+   CONTACT
+   ============================================================ */
+.contact-grid{display:grid;grid-template-columns:1fr 1fr;gap:clamp(28px,5vw,64px);align-items:start}
+.info-list{list-style:none;padding:0;margin:0}
+.info-list li{display:flex;gap:16px;padding:18px 0;border-bottom:1px solid var(--rule-soft)}
+.info-list li:first-child{border-top:1px solid var(--rule-soft)}
+.info-k{flex:none;width:74px;font-size:9.5px;font-weight:700;letter-spacing:.18em;text-transform:uppercase;color:var(--fg-faint);padding-top:3px}
+.info-v{font-size:15px;color:var(--fg)}
+.info-v a{text-decoration:none;border-bottom:1px solid var(--rule);transition:border-color .2s,color .2s}
+.info-v a:hover{color:var(--accent);border-color:var(--accent)}
+.info-v small{display:block;margin-top:4px;font-size:13px;color:var(--fg-dim)}
+
+/* map — custom styled, always renders; swap for the live embed at deploy */
+.map{
+  position:relative;border:1px solid var(--rule);border-radius:3px;overflow:hidden;
+  aspect-ratio:16/11;background:#EDEAE3;
+}
+.map svg{width:100%;height:100%;display:block}
+.map-pin{transform-origin:center;animation:pinPulse 2.6s ease-in-out infinite}
+@keyframes pinPulse{0%,100%{transform:scale(1)}50%{transform:scale(1.12)}}
+.map-ring{transform-origin:center;animation:ringOut 2.6s ease-out infinite}
+@keyframes ringOut{0%{r:5;opacity:.85}100%{r:34;opacity:0}}
+.map-label{
+  position:absolute;left:14px;bottom:14px;z-index:3;display:flex;align-items:stretch;
+  font-size:9.5px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;border-radius:2px;overflow:hidden;
+}
+.map-label b{background:#08090A;color:#F6F1E9;padding:10px 13px;font-weight:700}
+.map-label a{background:var(--molten);color:#180A02;padding:10px 13px;text-decoration:none}
+.map-label a:hover{background:var(--flare)}
+
+/* form */
+.form{display:grid;gap:16px}
+.field{display:flex;flex-direction:column;gap:7px}
+.field label{font-size:9.5px;font-weight:700;letter-spacing:.18em;text-transform:uppercase;color:var(--fg-faint)}
+.field label i{font-style:normal;color:var(--accent)}
+.field input,.field textarea,.field select{
+  font-family:var(--font);font-size:15px;color:var(--fg);background:var(--bg-raised);
+  border:1px solid var(--rule);border-radius:2px;padding:14px 15px;width:100%;
+  transition:border-color .2s,box-shadow .2s;
+}
+.field textarea{resize:vertical;min-height:132px;line-height:1.6}
+.field input:focus,.field textarea:focus,.field select:focus{
+  outline:none;border-color:var(--accent);box-shadow:0 0 0 3px color-mix(in srgb,var(--accent) 18%,transparent);
+}
+.field input:user-invalid,.field textarea:user-invalid{border-color:#E0603A}
+.field-err{font-size:12px;color:#E0603A;display:none}
+.field[data-invalid="true"] .field-err{display:block}
+.field-row{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+.form-foot{display:flex;gap:16px;align-items:center;flex-wrap:wrap;margin-top:4px}
+.form-note{font-size:12.5px;color:var(--fg-faint);max-width:38ch}
+
+/* ---------- responsive ---------- */
+
+/* the two-column service/about/contact splits stop working once each
+   column is narrower than its own content */
+@media (max-width:1180px){
+  /* three cards beside a text column stop fitting before the page does */
+  .whatwedo{grid-template-columns:1fr;gap:32px}
+  .whatwedo-intro .lede{max-width:60ch}
+  .whatwedo .values{grid-template-columns:repeat(auto-fit,minmax(230px,1fr))}
+}
+@media (max-width:1024px){
+  .svc-grid,.about-lead,.contact-grid{grid-template-columns:1fr!important}
+  .svc-media,.about-media{aspect-ratio:16/10;max-height:60vh}
+  /* the image leads on the upholstery band; on one column the copy should */
+  .svc--uph .svc-grid > .svc-media{order:2}
+  .svc--uph .svc-grid > .svc-copy{order:1}
+  .masonry{columns:250px;column-gap:14px}
+}
+@media (max-width:768px){
+  .masonry{columns:210px;column-gap:12px}
+  .tile{margin-bottom:12px}
+  .svc--pow .svc-split{grid-template-columns:1fr;min-height:0}
+  .svc-half{min-height:180px}
+  .gal-count{display:none}
+  .gal-bar-in{padding-top:11px;padding-bottom:11px;gap:7px}
+  .gal-filter{font-size:10.5px;padding:9px 13px;letter-spacing:.1em}
+  .info-list li{gap:12px}
+  .lb-btn{width:42px;height:42px}
+}
+@media (max-width:560px){
+  .masonry{columns:2;column-gap:9px}
+  .tile{margin-bottom:9px}
+  .tile figcaption{display:none}      /* unreadable at two columns on a phone */
+  .field-row{grid-template-columns:1fr}
+  .info-list li{flex-direction:column;gap:5px}
+  .info-k{width:auto}
+  .swatches{max-width:none}
+  .swatch{height:52px}
+  .form-foot{flex-direction:column;align-items:stretch}
+  .form-foot .btn{justify-content:center}
+  .form-note{text-align:center;max-width:none}
+  .map{aspect-ratio:4/3}
+  /* stack the label so it can stay legible instead of shrinking to fit */
+  .map-label{left:10px;right:10px;bottom:10px;font-size:10px;flex-direction:column;align-items:stretch}
+  .map-label b,.map-label a{padding:9px 12px;text-align:center}
+}
+/* short landscape phones — the split panel would eat the whole screen */
+@media (max-height:520px) and (orientation:landscape){
+  .svc-half{min-height:140px}
+  .svc-media,.about-media{max-height:70vh}
+}

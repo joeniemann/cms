@@ -1,0 +1,24 @@
+  <div id="gal-anchor" aria-hidden="true"></div>
+  <div class="gal-bar">
+    <div class="gal-bar-in">
+      <div id="gal-filters"></div>
+      <div class="gal-count" id="gal-count"></div>
+    </div>
+    <div class="gal-bar-in gal-bar-sub" id="gal-subfilters" hidden></div>
+  </div>
+
+  <section class="band band--dark gal-results" style="padding:0">
+    <div class="wrap">
+      <div class="masonry" id="masonry"
+           data-base="assets/gallery-thumbs/" data-full="assets/gallery/" data-ext=".webp">{{{staticTiles}}}</div>
+      <p class="gal-empty" id="gal-empty">{{emptyMessage}}</p>
+    </div>
+  </section>
+
+  <div class="lb" id="lb" data-open="false" role="dialog" aria-modal="true" aria-label="Project image">
+    <button class="lb-btn lb-close" type="button" aria-label="Close"><i class="fa-solid fa-xmark" aria-hidden="true"></i></button>
+    <button class="lb-btn lb-prev" type="button" aria-label="Previous"><i class="fa-solid fa-chevron-left" aria-hidden="true"></i></button>
+    <button class="lb-btn lb-next" type="button" aria-label="Next"><i class="fa-solid fa-chevron-right" aria-hidden="true"></i></button>
+    <img id="lb-img" src="" alt="">
+    <p class="lb-cap" id="lb-cap"></p>
+  </div>

@@ -1,0 +1,95 @@
+{
+  "id": "__ID__",
+  "name": "__NAME__",
+  "repo": "__REPO__",
+  "liveBranch": "main",
+  "draftBranch": "drafts",
+  "copy": [
+    "style-guide.html"
+  ],
+  "pageTypes": {
+    "home": {
+      "name": "Home page",
+      "unique": true,
+      "deletable": false,
+      "starts": [
+        "pageHeader",
+        "cardRow"
+      ],
+      "allowed": [
+        "pageHeader",
+        "cardRow",
+        "textPhoto"
+      ]
+    },
+    "info": {
+      "name": "Info page",
+      "starts": [
+        "pageHeader",
+        "textPhoto",
+        "cardRow",
+        "timeline"
+      ],
+      "allowed": [
+        "pageHeader",
+        "textPhoto",
+        "photoMosaic",
+        "cardRow",
+        "timeline"
+      ]
+    },
+    "service": {
+      "name": "Service page",
+      "starts": [
+        "pageHeader",
+        "serviceFeature",
+        "textPhoto"
+      ],
+      "allowed": [
+        "pageHeader",
+        "serviceFeature",
+        "textPhoto",
+        "photoMosaic",
+        "cardRow"
+      ]
+    },
+    "gallery": {
+      "name": "Gallery page",
+      "starts": [
+        "pageHeader",
+        "galleryBrowser"
+      ],
+      "allowed": [
+        "pageHeader",
+        "galleryBrowser"
+      ]
+    },
+    "contact": {
+      "name": "Contact page",
+      "unique": true,
+      "starts": [
+        "pageHeader",
+        "contactSection"
+      ],
+      "allowed": [
+        "pageHeader",
+        "contactSection"
+      ]
+    }
+  },
+  "protectedPages": [
+    "home",
+    "contact"
+  ],
+  "roles": {
+    "owner": [
+      "everything"
+    ],
+    "editor": [
+      "content",
+      "photos",
+      "pages",
+      "menu"
+    ]
+  }
+}

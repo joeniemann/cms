@@ -1,0 +1,18 @@
+  <section class="band band--{{look}}">
+    <div class="wrap">
+      <div class="about-lead about-lead--shop">
+        <div data-reveal>
+          <div class="eyebrow">{{eyebrow}}</div>
+          <h2 class="h-section" style="margin:16px 0 22px">{{br headline}}</h2>
+          <div class="body">
+            {{#each paragraphs}}<p>{{rich this}}</p>
+            {{/each}}</div>
+        </div>
+        <div class="shop-grid" data-reveal data-reveal-delay="120">
+          {{#each photos}}<figure class="shop-tile{{tileClass @index}}">
+            <img src="{{photoSrc this}}" alt="{{photoAlt this}}" loading="lazy" decoding="async">
+          </figure>
+          {{/each}}</div>
+      </div>
+    </div>
+  </section>

@@ -1,0 +1,35 @@
+{{#ifeq style "numbered"}}
+  <section class="band band--{{look}}{{backdropClass backdrop}}">
+    <div class="wrap">
+      <div class="eyebrow" data-reveal>{{eyebrow}}</div>
+      <h2 class="h-section" style="margin:16px 0 40px" data-reveal>{{br headline}}</h2>
+      <div class="values values--numbered">
+        {{#each cards}}<div class="value" data-reveal{{delay @index "80"}}>
+          <div class="n" aria-hidden="true"><span class="dig">{{tens @index}}</span><span class="dig">{{ones @index}}</span></div>
+          <h3>{{title}}</h3>
+          <p>{{text}}</p>
+        </div>
+        {{/each}}</div>
+    </div>
+  </section>
+{{else}}
+  <section class="band band--{{look}}{{backdropClass backdrop}}">
+    <div class="wrap">
+      <div class="whatwedo">
+        <div class="whatwedo-intro" data-reveal>
+          <div class="eyebrow">{{eyebrow}}</div>
+          <h2 class="h-section">{{br headline}}</h2>
+          <p class="lede">{{intro}}</p>
+        </div>
+
+        <div class="values" data-reveal data-reveal-delay="100">
+          {{#each cards}}<a class="value" href="{{href link}}">
+            <div class="n">{{label}}</div>
+            <h3>{{title}}</h3>
+            <p>{{text}}</p>
+          </a>
+          {{/each}}</div>
+      </div>
+    </div>
+  </section>
+{{/ifeq}}
