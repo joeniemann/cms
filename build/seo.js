@@ -77,6 +77,28 @@ function headTags(site, page, imageUrl) {
 }
 
 // LocalBusiness on the home and contact pages, Service on any page that has service blocks.
+// Service areas. serviceArea can be one string (old way, one region) or a list of places.
+// serviceRegion (optional string) is a broader region listed first, like "Central Florida".
+function areaServed(site) {
+  const seo = site.seo || {};
+  const b = site.business || {};
+  const st = /^(.+?),\s*([A-Za-z]{2})\s+\d{5}/.exec(b.cityLine || '');
+  const state = st ? st[2].toUpperCase() : '';
+  const out = [];
+  if (seo.serviceRegion) out.push({ '@type': 'AdministrativeArea', name: seo.serviceRegion });
+  const list = Array.isArray(seo.serviceArea) ? seo.serviceArea : [];
+  if (typeof seo.serviceArea === 'string' && seo.serviceArea) out.push({ '@type': 'AdministrativeArea', name: seo.serviceArea });
+  list.map(x => String(x || '').trim()).filter(Boolean).forEach(name => {
+    const c = { '@type': 'City', name };
+    if (state) c.containedInPlace = { '@type': 'AdministrativeArea', name: state };
+    out.push(c);
+  });
+  return out;
+}
+function areaNames(site) {
+  return areaServed(site).map(a => a.name);
+}
+
 function jsonLd(site, page, imageUrl) {
   const base = baseUrl(site);
   if (!base) return '';
@@ -98,8 +120,8 @@ function jsonLd(site, page, imageUrl) {
     if (hrs.length) biz.openingHoursSpecification = hrs;
     const sameAs = Object.values(b.social || {}).filter(Boolean);
     if (sameAs.length) biz.sameAs = sameAs;
-    const area = site.seo && site.seo.serviceArea;
-    if (area) biz.areaServed = { '@type': 'AdministrativeArea', name: area };
+    const areas = areaServed(site);
+    if (areas.length) biz.areaServed = areas;
     graph.push(biz);
   }
   (page.blocks || []).filter(x => x.type === 'serviceFeature').forEach(x => {
@@ -108,8 +130,8 @@ function jsonLd(site, page, imageUrl) {
     const s = { '@type': 'Service', name, provider: { '@id': bizId } };
     const desc = plain(x.text);
     if (desc) s.description = desc;
-    const area = site.seo && site.seo.serviceArea;
-    if (area) s.areaServed = { '@type': 'AdministrativeArea', name: area };
+    const areas = areaServed(site);
+    if (areas.length) s.areaServed = areas;
     if (x.anchor) s.url = pageUrl(site, page) + '#' + x.anchor;
     graph.push(s);
   });
@@ -149,7 +171,8 @@ function llms(site, livePages) {
   L.push('- Phone: ' + b.phone);
   if (b.email) L.push('- Email: ' + b.email);
   (b.hours || []).forEach(h => L.push('- Hours: ' + h.days + ', ' + h.times));
-  if (site.seo && site.seo.serviceArea) L.push('- Service area: ' + site.seo.serviceArea);
+  const names = areaNames(site);
+  if (names.length) L.push('- Service area: ' + names.join(', '));
   return L.join('\n') + '\n';
 }
 
