@@ -1,6 +1,6 @@
 {
   "name": "@joeniemann/cms",
-  "version": "0.2.0",
+  "version": "0.2.1",
   "description": "A simple website editor and page builder for client sites",
   "bin": {
     "cms": "bin/cms.js"

@@ -18,7 +18,9 @@ body.app-mode .card { display:none; }
 .banner.hidden { display:none; }
 .workspace { flex:1; display:grid; grid-template-columns:200px minmax(340px, 480px) 1fr; grid-template-rows:minmax(0, 1fr); min-height:0; overflow:hidden; }
 .sidenav, .editor, .previewpane { min-height:0; }
-.sidenav { background:#fff; border-right:1px solid var(--line); padding:14px 10px; overflow:auto; }
+.sidenav { background:#fff; border-right:1px solid var(--line); padding:14px 10px; overflow:auto; display:flex; flex-direction:column; }
+.sidenav > * { flex-shrink:0; }
+.sidenav .engver { margin:auto 0 0; padding:18px 12px 4px; font-size:12px; color:var(--muted); }
 .sidenav h3 { font-size:13px; font-weight:800; letter-spacing:.1em; text-transform:uppercase; color:#fff; background:linear-gradient(180deg,#2F343A,#1B1E22); border-top:1px solid #454A51; border-bottom:1px solid #454A51; border-radius:0; padding:9px 20px; margin:18px -10px 8px; }
 .sidenav h3:first-child { margin-top:-14px; }
 .sidenav button { display:block; width:100%; text-align:left; font-size:17px; padding:11px 12px; margin:2px 0; border:0; border-radius:10px; background:none; color:var(--ink); cursor:pointer; margin-top:2px; font-weight:500; }

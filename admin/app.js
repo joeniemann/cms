@@ -761,6 +761,9 @@ function navGroups() {
   ]
 }
 
+let engineVersion = ''
+try { fetch('version.json').then((r) => r.json()).then((v) => { engineVersion = v.version || ''; const el = document.querySelector('.engver'); if (el) el.textContent = engineVersion ? 'CMS engine v' + engineVersion : '' }).catch(() => {}) } catch (e) {}
+
 function drawNav(nav) {
   nav.textContent = ''
   for (const [group, items] of navGroups()) {
@@ -770,6 +773,7 @@ function drawNav(nav) {
       nav.append(h('button', { class: (state.screen === id ? 'on' : '') + (id === 'addpage' ? ' addbtn' : ''), disabled: !live, title: live ? '' : 'Coming soon', onclick: () => go(id) }, label + (live ? '' : '  (soon)')))
     }
   }
+  nav.append(h('p', { class: 'engver' }, engineVersion ? 'CMS engine v' + engineVersion : ''))
 }
 
 async function go(id) {

@@ -48,6 +48,7 @@ function build(site, out) {
   if (fs.existsSync(path.join(site, 'assets'))) copy(path.join(site, 'assets'), path.join(out, 'assets'));
   copy(path.join(ENGINE, 'admin'), path.join(out, 'admin'));
   copy(blocks, path.join(out, 'admin/blocks.json'));
+  fs.writeFileSync(path.join(out, 'admin/version.json'), JSON.stringify({ version: pkg.version }) + '\n');
   for (const rel of config.copy || []) {
     const from = path.join(site, rel);
     if (fs.existsSync(from)) copy(from, path.join(out, rel));
