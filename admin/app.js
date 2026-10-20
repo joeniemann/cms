@@ -152,9 +152,15 @@ function switchField(label, value, onChange) {
 // ---------- schema and photo library ----------
 let SCHEMA = null
 async function loadSchema() {
-  if (!SCHEMA) SCHEMA = await (await fetch('/admin/blocks.json')).json()
+  if (!SCHEMA) {
+    SCHEMA = await (await fetch('/admin/blocks.json')).json()
+    // The SEO screen comes with the engine. A site can still define its own.
+    if (!SCHEMA.siteForms) SCHEMA.siteForms = {}
+    if (!SCHEMA.siteForms.seo) SCHEMA.siteForms.seo = await (await fetch('/admin/seo-form.json')).json()
+  }
   return SCHEMA
 }
+let ROLE = ''
 async function loadPhotos() {
   const f = await loadFile('content/photos.json')
   return f.photos
@@ -744,6 +750,11 @@ const SCREENS = {
   business: formScreen('business', (site) => site.business),
   callBand: formScreen('callBand', (site) => site.callBand),
   footer: formScreen('footer', (site) => site.footer),
+  seo: formScreen('seo', (site) => {
+    const seo = site.seo || (site.seo = {})
+    if (seo.allowAiCrawlers === undefined) seo.allowAiCrawlers = true
+    return seo
+  }),
   menu: { title: 'Menu', render: renderMenu, preview: 'home' },
   addpage: addPageScreen(),
   pages: pagesScreen(),
@@ -757,7 +768,7 @@ function navGroups() {
   const added = PAGES.filter((p) => p.custom && !p.archived).map((p) => [p.id, navLabel(p)])
   return [
     ['Pages', [...base, ...added, ['addpage', '+ Add a page'], ['pages', 'All pages']]],
-    ['Site', [['photos', 'Photos'], ['menu', 'Menu'], ['business', 'Business info'], ['callBand', 'Call band'], ['footer', 'Footer'], ['history', 'History']]],
+    ['Site', [['photos', 'Photos'], ['menu', 'Menu'], ['business', 'Business info'], ['callBand', 'Call band'], ['footer', 'Footer'], ['history', 'History'], ...(ROLE === 'owner' ? [['seo', 'SEO']] : [])]],
   ]
 }
 
@@ -868,6 +879,7 @@ async function renderMenu(root, site) {
 
 // ---------- start ----------
 export function startApp(user) {
+  ROLE = (user && user.role) || ''
   state.user = user
   const app = $('#app')
   app.textContent = ''

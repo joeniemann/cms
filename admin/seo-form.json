@@ -1,0 +1,103 @@
+{
+  "title": "SEO",
+  "lead": "This controls how Google, AI tools and social media see the site. Most people never need to change it. Only the owner can see this screen.",
+  "preview": "home",
+  "groups": [
+    {
+      "name": "Where you work",
+      "fields": {
+        "serviceRegion": {
+          "label": "Region name",
+          "kind": "text",
+          "max": 60,
+          "note": "A wider area, like Central Florida. It is listed first."
+        },
+        "serviceArea": {
+          "label": "Cities and towns you serve",
+          "kind": "list",
+          "min": 0,
+          "max": 60,
+          "item": {
+            "kind": "text",
+            "label": "City or town",
+            "max": 40
+          }
+        }
+      }
+    },
+    {
+      "name": "Link preview image",
+      "fields": {
+        "shareImage": {
+          "label": "Picture shown when the site is shared",
+          "kind": "photo",
+          "altRequired": false,
+          "note": "If you pick nothing, the first gallery photo is used."
+        }
+      }
+    },
+    {
+      "name": "AI search tools",
+      "fields": {
+        "allowAiCrawlers": {
+          "label": "Let ChatGPT, Claude, Perplexity and other AI tools read the site",
+          "kind": "switch"
+        }
+      }
+    },
+    {
+      "name": "Old page redirects",
+      "fields": {
+        "redirects": {
+          "label": "Redirects",
+          "kind": "list",
+          "min": 0,
+          "max": 100,
+          "item": {
+            "from": {
+              "label": "Old address (starts with /)",
+              "kind": "text",
+              "max": 160,
+              "pattern": "^/.*$",
+              "patternMessage": "The old address needs to start with a slash, like /old-page."
+            },
+            "to": {
+              "label": "New address (starts with / or https://)",
+              "kind": "text",
+              "max": 200,
+              "pattern": "^(/|https://).*$",
+              "patternMessage": "The new address needs to start with / or https://."
+            },
+            "status": {
+              "label": "Type",
+              "kind": "choice",
+              "options": [
+                [
+                  "301",
+                  "Permanent (301)"
+                ],
+                [
+                  "302",
+                  "Temporary (302)"
+                ]
+              ]
+            }
+          }
+        }
+      }
+    },
+    {
+      "name": "Site address",
+      "fields": {
+        "siteUrl": {
+          "label": "Main web address",
+          "kind": "text",
+          "max": 120,
+          "pattern": "^https://[^/]+$",
+          "patternMessage": "Use the full address starting with https:// and no slash at the end.",
+          "note": "Used for the sitemap and search engine links. Change it only if the domain changes."
+        }
+      }
+    }
+  ]
+}

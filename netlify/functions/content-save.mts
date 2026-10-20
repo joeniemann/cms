@@ -1,5 +1,5 @@
 // Saves one content file to the drafts branch. Nothing goes live from here.
-import { requireEditor, reply, okPath, ensureDraftBranch, gh, problemWith, DRAFT } from '../lib/core.mts'
+import { requireEditor, reply, okPath, ensureDraftBranch, gh, problemWith, DRAFT, LIVE } from '../lib/core.mts'
 
 export default async (req: Request) => {
   if (req.method !== 'POST') return reply({ error: 'Use POST.' }, 405)
@@ -9,6 +9,15 @@ export default async (req: Request) => {
   try { body = await req.json() } catch { return reply({ error: 'Bad request.' }, 400) }
   const { path, content, sha } = body || {}
   if (!okPath(path)) return reply({ error: 'That file is not editable.' }, 400)
+  // Only the owner can change the SEO settings. Editors can save everything else in site.json.
+  if (path === 'content/site.json' && !(who.user!.roles || []).includes('owner')) {
+    const cur = await gh('/contents/' + path + '?ref=' + DRAFT)
+    const live = cur.status === 200 ? cur : await gh('/contents/' + path + '?ref=' + LIVE)
+    if (live.status !== 200) return reply({ error: 'Could not check the settings. Try again.' }, 500)
+    const j0 = await live.json()
+    const before = JSON.parse(Buffer.from(j0.content, 'base64').toString('utf8'))
+    if (JSON.stringify(before.seo ?? null) !== JSON.stringify((content && content.seo) ?? null)) return reply({ error: 'Only the owner can change the SEO settings.' }, 403)
+  }
   const text = JSON.stringify(content, null, 2) + '\n'
   const bad = problemWith(path, text)
   if (bad) return reply({ error: bad }, 400)

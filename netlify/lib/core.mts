@@ -72,6 +72,35 @@ export async function readFile(path: string, branch: string, sha?: string) {
 }
 
 // Checks a file before it is saved. Returns a plain-English problem, or null if fine.
+// Checks the SEO settings so a typo cannot break the site.
+export function seoProblem(seo: any): string | null {
+  if (seo === undefined || seo === null) return null
+  if (typeof seo !== 'object' || Array.isArray(seo)) return 'The SEO settings are not valid.'
+  if (seo.siteUrl && !/^https:\/\/[^\/\s]+$/.test(seo.siteUrl)) return 'The main web address needs to start with https:// and have no slash at the end.'
+  if (seo.serviceRegion !== undefined && (typeof seo.serviceRegion !== 'string' || seo.serviceRegion.length > 60)) return 'The region name is not valid.'
+  const area = seo.serviceArea
+  if (area !== undefined && area !== '') {
+    if (typeof area === 'string') { if (area.length > 60) return 'The service area is too long.' }
+    else if (!Array.isArray(area) || area.length > 60 || area.some((x: unknown) => typeof x !== 'string' || x.length > 40)) return 'The list of cities is not valid. Use up to 60 names.'
+  }
+  if (seo.redirects !== undefined) {
+    if (!Array.isArray(seo.redirects) || seo.redirects.length > 100) return 'The redirects list is not valid.'
+    const seen = new Set<string>()
+    for (const r of seo.redirects) {
+      if (!r || typeof r.from !== 'string' || typeof r.to !== 'string') return 'Every redirect needs an old and a new address.'
+      if (!r.from && !r.to) continue
+      if (!/^\/[^\s*:]*$/.test(r.from)) return 'An old address needs to start with / and have no spaces, like /old-page.'
+      if (!/^(\/[^\s]*|https:\/\/[^\s]+)$/.test(r.to)) return 'A new address needs to start with / or https://.'
+      if (r.from === r.to) return 'A redirect cannot point to itself: ' + r.from
+      if (seen.has(r.from)) return 'You have two redirects for ' + r.from + '. Keep one.'
+      seen.add(r.from)
+      if (r.status !== undefined && !['301', '302', 301, 302].includes(r.status)) return 'A redirect type has to be 301 or 302.'
+    }
+  }
+  if (seo.allowAiCrawlers !== undefined && typeof seo.allowAiCrawlers !== 'boolean') return 'The AI tools switch is not valid.'
+  return null
+}
+
 export function problemWith(path: string, text: string): string | null {
   if (text.length > 400000) return 'That file is too big.'
   let data: any
@@ -89,6 +118,8 @@ export function problemWith(path: string, text: string): string | null {
   }
   if (path === 'content/site.json') {
     if (!data || typeof data !== 'object' || !data.business || !data.menu) return 'Business info or the menu is missing.'
+    const bad = seoProblem(data.seo)
+    if (bad) return bad
   }
   return null
 }
